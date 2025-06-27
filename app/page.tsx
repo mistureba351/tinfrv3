@@ -1713,11 +1713,11 @@ export default function SigiloX() {
                                 },
                               )
                               // Redirect directly to checkout
-                              window.open("https://global.mundpay.com/t1zvu", "_blank")
+                              window.open("https://global.mundpay.com/qggubavs2v", "_blank")
                             } catch (error) {
                               console.error("Erreur lors de l'envoi de l'email:", error)
                               // Even if there's an error, redirect to checkout
-                              window.open("https://global.mundpay.com/t1zvu", "_blank")
+                              window.open("https://global.mundpay.com/qggubavs2v", "_blank")
                             } finally {
                               setIsSubmittingEmail(false)
                             }
