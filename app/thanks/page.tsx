@@ -42,9 +42,9 @@ export default function ThanksPage() {
               <CheckCircle className="w-10 h-10 text-white" />
             </motion.div>
 
-            <h1 className="text-4xl font-bold text-white mb-2">🎉 Payment Successful!</h1>
+            <h1 className="text-4xl font-bold text-white mb-2">🎉 Paiement Réussi !</h1>
             <p className="text-xl text-gray-300">
-              Thank you for your purchase. Your complete report is being processed.
+              Merci pour votre achat. Votre rapport complet est en cours de traitement.
             </p>
           </div>
 
@@ -53,9 +53,11 @@ export default function ThanksPage() {
             <CardContent className="p-8">
               {/* Report Delivery Section */}
               <div className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">📩 Complete Report Delivery</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                  📩 Livraison du Rapport Complet
+                </h2>
                 <p className="text-lg text-gray-600 mb-6">
-                  <strong>Estimated Delivery:</strong> Within 7 days
+                  <strong>Livraison Estimée :</strong> Dans les 7 jours
                 </p>
 
                 {/* Process Steps */}
@@ -94,7 +96,11 @@ export default function ThanksPage() {
                                 : "text-gray-600"
                           }`}
                         >
-                          {step.label}
+                          {step.label === "Payment Confirmed"
+                            ? "Paiement Confirmé"
+                            : step.label === "Report Processing"
+                              ? "Traitement du Rapport"
+                              : "Livraison par Email"}
                         </span>
                         {step.status === "completed" && <CheckCircle className="w-5 h-5 text-green-600 ml-auto" />}
                         {step.status === "current" && (
@@ -112,7 +118,7 @@ export default function ThanksPage() {
 
               {/* What's Included */}
               <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">📦 What's Included</h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">📦 Ce Qui Est Inclus</h3>
                 <div className="space-y-3">
                   {reportItems.map((item, index) => (
                     <motion.div
@@ -123,7 +129,15 @@ export default function ThanksPage() {
                       className="flex items-center"
                     >
                       <CheckCircle className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">{item}</span>
+                      <span className="text-gray-700">
+                        {item === "All profile photos (including private ones)"
+                          ? "Toutes les photos de profil (y compris les privées)"
+                          : item === "Complete conversation history and messages"
+                            ? "Historique complet des conversations et messages"
+                            : item === "Exact location data and dating activity"
+                              ? "Données de localisation exactes et activité de rencontre"
+                              : "Chronologie détaillée des activités et modèles"}
+                      </span>
                     </motion.div>
                   ))}
                 </div>
@@ -139,12 +153,14 @@ export default function ThanksPage() {
                 <div className="flex items-start">
                   <AlertTriangle className="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-semibold text-yellow-800 mb-2">⚠️ Important Notice</h4>
+                    <h4 className="font-semibold text-yellow-800 mb-2">⚠️ Avis Important</h4>
                     <p className="text-yellow-700 leading-relaxed">
-                      Please check your email regularly, including your spam/junk folder. The report will be sent from a
-                      secure email address.
+                      Veuillez vérifier régulièrement votre email, y compris votre dossier spam/courrier indésirable. Le
+                      rapport sera envoyé depuis une adresse email sécurisée.
                       <br />
-                      <strong>If you don't receive it within 7 days, please contact our support team.</strong>
+                      <strong>
+                        Si vous ne le recevez pas dans les 7 jours, veuillez contacter notre équipe de support.
+                      </strong>
                     </p>
                   </div>
                 </div>
@@ -154,15 +170,15 @@ export default function ThanksPage() {
               <div className="flex justify-center items-center space-x-6 mb-8 text-sm text-gray-600">
                 <div className="flex items-center">
                   <Shield className="w-4 h-4 mr-1 text-green-600" />
-                  SSL Secured
+                  Sécurisé SSL
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="w-4 h-4 mr-1 text-blue-600" />
-                  Verified Payment
+                  Paiement Vérifié
                 </div>
                 <div className="flex items-center">
                   <Mail className="w-4 h-4 mr-1 text-purple-600" />
-                  Email Protected
+                  Email Protégé
                 </div>
               </div>
 
@@ -177,7 +193,7 @@ export default function ThanksPage() {
                   onClick={() => router.push("/")}
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <ArrowLeft className="w-5 h-5 mr-2" />← Back to Home
+                  <ArrowLeft className="w-5 h-5 mr-2" />← Retour à l'Accueil
                 </Button>
               </motion.div>
             </CardContent>
@@ -191,7 +207,7 @@ export default function ThanksPage() {
             className="text-center mt-8 text-gray-400 text-sm"
           >
             <p>
-              Need help? Contact our support team at{" "}
+              Besoin d'aide ? Contactez notre équipe de support à{" "}
               <a href="mailto:support@tindercheck.online" className="text-blue-400 hover:underline">
                 support@tindercheck.online
               </a>

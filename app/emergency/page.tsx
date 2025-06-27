@@ -5,7 +5,6 @@ import { motion } from "framer-motion"
 import { MapPin, Shield, CheckCircle, Camera, MessageCircle, Lock } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { useGeolocation } from "@/hooks/useGeolocation"
-import Link from "next/link"
 
 export default function EmergencyPage() {
   const [currentDateTime, setCurrentDateTime] = useState("")
@@ -59,16 +58,16 @@ export default function EmergencyPage() {
   const handleMainButton = () => {
     try {
       // Verificar se o script OneClick está disponível
-      if (typeof window !== 'undefined' && window.fornpay) {
+      if (typeof window !== "undefined" && window.fornpay) {
         // Tentar acionar o OneClick com o ID do fornpay
-        window.fornpay.trigger('ihkj3cpssf')
+        window.fornpay.trigger("ihkj3cpssf")
       } else {
-        console.warn('OneClick script not loaded yet')
+        console.warn("OneClick script not loaded yet")
         // Fallback: você pode adicionar uma lógica alternativa aqui
         // Por exemplo, mostrar uma mensagem ou tentar novamente após um delay
       }
     } catch (error) {
-      console.error('Error triggering OneClick:', error)
+      console.error("Error triggering OneClick:", error)
     }
   }
 
@@ -77,19 +76,19 @@ export default function EmergencyPage() {
       // Redirecionar para o downsell
       window.location.href = "https://www.tindercheck.online/emergency-d"
     } catch (error) {
-      console.error('Error redirecting to downsell:', error)
+      console.error("Error redirecting to downsell:", error)
     }
   }
 
   const suspiciousStats = [
-    { count: 58, description: "suspicious messages" },
-    { count: 13, keyword: "delicious", description: "posts contained the word/similar" },
-    { count: 41, keyword: "Love", description: "messages contained the word/similar" },
-    { count: 20, description: "photos and 5 videos are hidden by a password on the phone" },
-    { count: 8, keyword: "Secret", description: "messages contained the word/similar" },
-    { count: 2, description: "archived conversations have been marked as suspicious" },
-    { count: 9, description: "recently received single-view images were also identified and restored" },
-    { count: 7, description: `suspicious locations have been detected near ${city || "your area"}` },
+    { count: 58, description: "messages suspects" },
+    { count: 13, keyword: "delicious", description: "publications contenaient le mot/similaire" },
+    { count: 41, keyword: "Love", description: "messages contenaient le mot/similaire" },
+    { count: 20, description: "photos et 5 vidéos sont cachées par un mot de passe sur le téléphone" },
+    { count: 8, keyword: "Secret", description: "messages contenaient le mot/similaire" },
+    { count: 2, description: "conversations archivées ont été marquées comme suspectes" },
+    { count: 9, description: "images à vue unique récemment reçues ont également été identifiées et restaurées" },
+    { count: 7, description: `emplacements suspects ont été détectés près de ${city || "your area"}` },
   ]
 
   const blockedImages = [
@@ -113,8 +112,8 @@ export default function EmergencyPage() {
           animate={{ scale: 1, opacity: 1 }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2">🚨 EMERGENCY ALERT!</h1>
-          <p className="text-lg sm:text-xl">Your relationship could be in danger!</p>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2">🚨 ALERTE D'URGENCE !</h1>
+          <p className="text-lg sm:text-xl">Votre relation pourrait être en danger !</p>
         </motion.div>
       </div>
 
@@ -123,10 +122,11 @@ export default function EmergencyPage() {
         <Card className="border-orange-200 bg-orange-50">
           <CardContent className="p-6 text-center">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
-              Our data-driven algorithm, using words and photos, detected suspicious messages and files…
+              Notre algorithme basé sur les données, utilisant mots et photos, a détecté des messages et fichiers
+              suspects…
             </h2>
             <p className="text-lg font-semibold text-green-600">
-              Report exported with 98% accuracy on: <span className="text-blue-600">{currentDateTime}</span>
+              Rapport exporté avec 98% de précision le : <span className="text-blue-600">{currentDateTime}</span>
             </p>
           </CardContent>
         </Card>
@@ -151,7 +151,7 @@ export default function EmergencyPage() {
         <Card className="border-red-200 bg-red-50">
           <CardContent className="p-6">
             <h3 className="text-xl font-bold text-gray-800 mb-6 text-center">
-              We found <span className="text-red-600 font-bold">58</span> suspicious messages:
+              Nous avons trouvé 58 messages suspects :
             </h3>
             <div className="space-y-3">
               {suspiciousStats.map((stat, index) => (
@@ -180,9 +180,9 @@ export default function EmergencyPage() {
           <CardContent className="p-6">
             <div className="text-center mb-6">
               <h3 className="text-xl font-bold text-gray-800 mb-2">
-                We have detected suspicious messages on WhatsApp.
+                Nous avons détecté des messages suspects sur WhatsApp.
               </h3>
-              <p className="text-red-600 font-semibold">(Get access to the app to view messages.)</p>
+              <p className="text-red-600 font-semibold">(Obtenez l'accès à l'application pour voir les messages.)</p>
             </div>
 
             {/* Mock WhatsApp Interface */}
@@ -218,9 +218,11 @@ export default function EmergencyPage() {
           <CardContent className="p-6">
             <div className="text-center mb-6">
               <h3 className="text-xl font-bold text-gray-800 mb-2">
-                We have detected photos and videos containing nudity.
+                Nous avons détecté des photos et vidéos contenant de la nudité.
               </h3>
-              <p className="text-red-600 font-semibold">(Get access to the app to view photos without censorship.)</p>
+              <p className="text-red-600 font-semibold">
+                (Obtenez l'accès à l'application pour voir les photos sans censure.)
+              </p>
             </div>
 
             {/* Censored Photo Grid */}
@@ -246,14 +248,16 @@ export default function EmergencyPage() {
         <Card className="border-green-200 bg-green-50">
           <CardContent className="p-6">
             <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">
-              The phone you want to track was recently located here.
+              Le téléphone que vous voulez traquer a été récemment localisé ici.
             </h3>
 
             {/* Location Info */}
             <div className="text-center mb-4">
               <div className="inline-flex items-center gap-2 bg-blue-100 px-4 py-2 rounded-full">
                 <MapPin className="w-5 h-5 text-blue-600" />
-                <span className="font-semibold text-blue-800">{city ? `Last seen in ${city}` : "Locating..."}</span>
+                <span className="font-semibold text-blue-800">
+                  {city ? `Vu pour la dernière fois à ${city}` : "Locating..."}
+                </span>
               </div>
             </div>
 
@@ -281,7 +285,7 @@ export default function EmergencyPage() {
                 <Camera className="w-12 h-12 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                You have reached the end of your free consultation.
+                Vous avez atteint la fin de votre consultation gratuite.
               </h3>
             </div>
 
@@ -309,9 +313,9 @@ export default function EmergencyPage() {
         <Card className="border-red-500 bg-gradient-to-r from-red-50 to-orange-50">
           <CardContent className="p-6">
             <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-red-600 mb-2">🔥 90% OFF TODAY ONLY!</h3>
+              <h3 className="text-2xl font-bold text-red-600 mb-2">🔥 90% DE RÉDUCTION AUJOURD'HUI SEULEMENT !</h3>
               <p className="text-lg font-semibold text-gray-700">
-                Offer expires in: <span className="text-red-600 font-mono">{formatTime(timeLeft)}</span>
+                L'offre expire dans : <span className="text-red-600 font-mono">{formatTime(timeLeft)}</span>
               </p>
             </div>
 
@@ -323,7 +327,7 @@ export default function EmergencyPage() {
 
                 {/* Features */}
                 <div className="space-y-2 text-left mb-6">
-                  {["30 days warranty", "Access for 1 year", "Tracking up to 3 numbers"].map((feature, index) => (
+                  {["Garantie de 30 jours", "Accès pendant 1 an", "Suivi jusqu'à 3 numéros"].map((feature, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <CheckCircle className="w-5 h-5 text-green-500" />
                       <span className="text-sm">{feature}</span>
@@ -353,10 +357,10 @@ export default function EmergencyPage() {
                       textAlign: "center",
                       marginBottom: "10px",
                       width: "100%",
-                      boxSizing: "border-box"
+                      boxSizing: "border-box",
                     }}
                   >
-                    ✅ I WANT ACCESS TO THE SUSPICIOUS CONTENT NOW
+                    ✅ JE VEUX ACCÉDER AU CONTENU SUSPECT MAINTENANT
                   </button>
                   <button
                     onClick={handleDownsell}
@@ -375,10 +379,10 @@ export default function EmergencyPage() {
                       background: "none",
                       border: "none",
                       padding: "0",
-                      width: "100%"
+                      width: "100%",
                     }}
                   >
-                    I don't want access to suspicious content now
+                    Je ne veux pas accéder au contenu suspect maintenant
                   </button>
                 </div>
               </div>
@@ -392,7 +396,7 @@ export default function EmergencyPage() {
             <div className="w-20 h-20 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center">
               <Shield className="w-10 h-10 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-green-700 mb-4">30-Day Satisfaction or Money Back Guarantee</h3>
+            <h3 className="text-xl font-bold text-green-700 mb-4">Garantie Satisfaction 30 Jours ou Remboursé</h3>
             <div className="text-gray-700 space-y-3 max-w-2xl mx-auto">
               <p>
                 Under French law, we are required to refund you if you are not satisfied with the app within 14 days.

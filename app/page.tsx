@@ -33,12 +33,12 @@ const SalesProofPopup = ({ show, onClose }: { show: boolean; onClose: () => void
   const [currentMessage, setCurrentMessage] = useState("")
 
   const salesMessages = [
-    "✅ Jessica from Austin unlocked a report 12 minutes ago",
-    "✅ Sarah recently viewed conversation history",
-    "✅ Michelle just accessed confidential photos",
-    "✅ Jennifer completed a full analysis right now",
-    "✅ Ashley gained access to the confidential report moments ago",
-    "✅ Rachel performed a complete verification right now",
+    "✅ Jessica de Paris a débloqué un rapport il y a 12 minutes",
+    "✅ Sarah a récemment consulté l'historique des conversations",
+    "✅ Michelle vient d'accéder aux photos confidentielles",
+    "✅ Jennifer a terminé une analyse complète à l'instant",
+    "✅ Ashley a obtenu l'accès au rapport confidentiel il y a quelques instants",
+    "✅ Rachel a effectué une vérification complète à l'instant",
   ]
 
   useEffect(() => {
@@ -88,9 +88,9 @@ export default function SigiloX() {
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null)
   const [isPhotoPrivate, setIsPhotoPrivate] = useState(false)
   const [verificationProgress, setVerificationProgress] = useState(0)
-  const [verificationMessage, setVerificationMessage] = useState("Starting analysis...")
+  const [verificationMessage, setVerificationMessage] = useState("Démarrage de l'analyse...")
   const [generatingProgress, setGeneratingProgress] = useState(0)
-  const [generatingMessage, setGeneratingMessage] = useState("Analyzing profile photos...")
+  const [generatingMessage, setGeneratingMessage] = useState("Analyse des photos de profil...")
   const [timeLeft, setTimeLeft] = useState(9 * 60 + 50) // 9:50
   const [showSalesPopup, setShowSalesPopup] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -104,58 +104,31 @@ export default function SigiloX() {
   const [generatedProfiles, setGeneratedProfiles] = useState<any[]>([])
 
   const [selectedCountry, setSelectedCountry] = useState({
-    code: "+1",
-    name: "United States",
-    flag: "🇺🇸",
-    placeholder: "(555) 123-4567",
+    code: "+33",
+    name: "France",
+    flag: "🇫🇷",
+    placeholder: "6 12 34 56 78",
   })
   const [showCountryDropdown, setShowCountryDropdown] = useState(false)
   const [countrySearch, setCountrySearch] = useState("")
 
   const countries = [
-    { code: "+55", name: "Brazil", flag: "🇧🇷", placeholder: "(11) 99999-9999" },
-    { code: "+1", name: "United States", flag: "🇺🇸", placeholder: "(555) 123-4567" },
-    { code: "+1", name: "Canada", flag: "🇨🇦", placeholder: "(555) 123-4567" },
-    { code: "+44", name: "United Kingdom", flag: "🇬🇧", placeholder: "7911 123456" },
     { code: "+33", name: "France", flag: "🇫🇷", placeholder: "6 12 34 56 78" },
-    { code: "+49", name: "Germany", flag: "🇩🇪", placeholder: "1512 3456789" },
-    { code: "+39", name: "Italy", flag: "🇮🇹", placeholder: "312 345 6789" },
-    { code: "+34", name: "Spain", flag: "🇪🇸", placeholder: "612 34 56 78" },
+    { code: "+32", name: "Belgique", flag: "🇧🇪", placeholder: "470 12 34 56" },
+    { code: "+41", name: "Suisse", flag: "🇨🇭", placeholder: "78 123 45 67" },
+    { code: "+1", name: "Canada", flag: "🇨🇦", placeholder: "(555) 123-4567" },
+    { code: "+212", name: "Maroc", flag: "🇲🇦", placeholder: "6 12 34 56 78" },
+    { code: "+213", name: "Algérie", flag: "🇩🇿", placeholder: "5 12 34 56 78" },
+    { code: "+216", name: "Tunisie", flag: "🇹🇳", placeholder: "20 123 456" },
+    { code: "+225", name: "Côte d'Ivoire", flag: "🇨🇮", placeholder: "01 23 45 67 89" },
+    { code: "+221", name: "Sénégal", flag: "🇸🇳", placeholder: "70 123 45 67" },
+    { code: "+237", name: "Cameroun", flag: "🇨🇲", placeholder: "6 71 23 45 67" },
+    { code: "+1", name: "États-Unis", flag: "🇺🇸", placeholder: "(555) 123-4567" },
+    { code: "+44", name: "Royaume-Uni", flag: "🇬🇧", placeholder: "7911 123456" },
+    { code: "+49", name: "Allemagne", flag: "🇩🇪", placeholder: "1512 3456789" },
+    { code: "+39", name: "Italie", flag: "🇮🇹", placeholder: "312 345 6789" },
+    { code: "+34", name: "Espagne", flag: "🇪🇸", placeholder: "612 34 56 78" },
     { code: "+351", name: "Portugal", flag: "🇵🇹", placeholder: "912 345 678" },
-    { code: "+52", name: "Mexico", flag: "🇲🇽", placeholder: "55 1234 5678" },
-    { code: "+54", name: "Argentina", flag: "🇦🇷", placeholder: "11 1234-5678" },
-    { code: "+56", name: "Chile", flag: "🇨🇱", placeholder: "9 1234 5678" },
-    { code: "+57", name: "Colombia", flag: "🇨🇴", placeholder: "300 1234567" },
-    { code: "+51", name: "Peru", flag: "🇵🇪", placeholder: "912 345 678" },
-    { code: "+58", name: "Venezuela", flag: "🇻🇪", placeholder: "412-1234567" },
-    { code: "+593", name: "Ecuador", flag: "🇪🇨", placeholder: "99 123 4567" },
-    { code: "+595", name: "Paraguay", flag: "🇵🇾", placeholder: "961 123456" },
-    { code: "+598", name: "Uruguay", flag: "🇺🇾", placeholder: "94 123 456" },
-    { code: "+591", name: "Bolivia", flag: "🇧🇴", placeholder: "71234567" },
-    { code: "+81", name: "Japan", flag: "🇯🇵", placeholder: "90-1234-5678" },
-    { code: "+82", name: "South Korea", flag: "🇰🇷", placeholder: "10-1234-5678" },
-    { code: "+86", name: "China", flag: "🇨🇳", placeholder: "138 0013 8000" },
-    { code: "+91", name: "India", flag: "🇮🇳", placeholder: "81234 56789" },
-    { code: "+61", name: "Australia", flag: "🇦🇺", placeholder: "412 345 678" },
-    { code: "+64", name: "New Zealand", flag: "🇳🇿", placeholder: "21 123 4567" },
-    { code: "+27", name: "South Africa", flag: "🇿🇦", placeholder: "71 123 4567" },
-    { code: "+20", name: "Egypt", flag: "🇪🇬", placeholder: "100 123 4567" },
-    { code: "+234", name: "Nigeria", flag: "🇳🇬", placeholder: "802 123 4567" },
-    { code: "+254", name: "Kenya", flag: "🇰🇪", placeholder: "712 123456" },
-    { code: "+971", name: "United Arab Emirates", flag: "🇦🇪", placeholder: "50 123 4567" },
-    { code: "+966", name: "Saudi Arabia", flag: "🇸🇦", placeholder: "50 123 4567" },
-    { code: "+90", name: "Turkey", flag: "🇹🇷", placeholder: "501 234 56 78" },
-    { code: "+7", name: "Russia", flag: "🇷🇺", placeholder: "912 345-67-89" },
-    { code: "+380", name: "Ukraine", flag: "🇺🇦", placeholder: "50 123 4567" },
-    { code: "+48", name: "Poland", flag: "🇵🇱", placeholder: "512 345 678" },
-    { code: "+31", name: "Netherlands", flag: "🇳🇱", placeholder: "6 12345678" },
-    { code: "+32", name: "Belgium", flag: "🇧🇪", placeholder: "470 12 34 56" },
-    { code: "+41", name: "Switzerland", flag: "🇨🇭", placeholder: "78 123 45 67" },
-    { code: "+43", name: "Austria", flag: "🇦🇹", placeholder: "664 123456" },
-    { code: "+45", name: "Denmark", flag: "🇩🇰", placeholder: "20 12 34 56" },
-    { code: "+46", name: "Sweden", flag: "🇸🇪", placeholder: "70-123 45 67" },
-    { code: "+47", name: "Norway", flag: "🇳🇴", placeholder: "406 12 345" },
-    { code: "+358", name: "Finland", flag: "🇫🇮", placeholder: "50 123 4567" },
   ]
 
   const filteredCountries = countries.filter(
@@ -214,30 +187,30 @@ export default function SigiloX() {
       },
       {
         id: "verification",
-        label: "Verif",
-        fullLabel: "Verification",
-        mobileLabel: "Verif",
+        label: "Vérif",
+        fullLabel: "Vérification",
+        mobileLabel: "Vérif",
         completed: ["verification", "preliminary", "generating", "result", "offer"].includes(currentStep),
       },
       {
         id: "preliminary",
-        label: "Result",
-        fullLabel: "Result",
-        mobileLabel: "Resultado",
+        label: "Résultat",
+        fullLabel: "Résultat",
+        mobileLabel: "Résultat",
         completed: ["preliminary", "generating", "result", "offer"].includes(currentStep),
       },
       {
         id: "generating",
-        label: "Relat",
-        fullLabel: "Report",
-        mobileLabel: "Relatório",
+        label: "Rapport",
+        fullLabel: "Rapport",
+        mobileLabel: "Rapport",
         completed: ["generating", "result", "offer"].includes(currentStep),
       },
       {
         id: "offer",
-        label: "Desbl",
-        fullLabel: "Unlock",
-        mobileLabel: "Acesso",
+        label: "Accès",
+        fullLabel: "Déverrouillage",
+        mobileLabel: "Accès",
         completed: currentStep === "offer",
       },
     ]
@@ -258,14 +231,14 @@ export default function SigiloX() {
   useEffect(() => {
     if (currentStep === "verification") {
       const messages = [
-        { progress: 0, message: "Checking Tinder activity in your area..." },
-        { progress: 15, message: "Cross-referencing facial recognition data..." },
-        { progress: 30, message: "Analyzing recent login patterns..." },
-        { progress: 45, message: "Scanning Bumble, Hinge, and other platforms..." },
-        { progress: 60, message: "Detecting suspicious location activity..." },
-        { progress: 75, message: "Compiling confidential evidence..." },
-        { progress: 90, message: "Almost there - finalizing your report..." },
-        { progress: 100, message: "Investigation completed successfully!" },
+        { progress: 0, message: "Vérification de l'activité Tinder dans votre région..." },
+        { progress: 15, message: "Recoupement des données de reconnaissance faciale..." },
+        { progress: 30, message: "Analyse des modèles de connexion récents..." },
+        { progress: 45, message: "Scan de Bumble, Hinge et autres plateformes..." },
+        { progress: 60, message: "Détection d'activité de localisation suspecte..." },
+        { progress: 75, message: "Compilation des preuves confidentielles..." },
+        { progress: 90, message: "Presque terminé - finalisation de votre rapport..." },
+        { progress: 100, message: "Enquête terminée avec succès !" },
       ]
 
       const interval = setInterval(() => {
@@ -292,20 +265,20 @@ export default function SigiloX() {
   useEffect(() => {
     if (currentStep === "generating") {
       const baseMessages = [
-        { progress: 0, message: "Analyzing profile photos..." },
-        { progress: 20, message: "Processing message history..." },
-        { progress: 40, message: "Checking last accessed locations..." },
-        { progress: 60, message: "Compiling activity data..." },
-        { progress: 80, message: "Encrypting sensitive information..." },
-        { progress: 95, message: "Finalizing complete report..." },
-        { progress: 100, message: "Report generated successfully!" },
+        { progress: 0, message: "Analyse des photos de profil..." },
+        { progress: 20, message: "Traitement de l'historique des messages..." },
+        { progress: 40, message: "Vérification des dernières localisations..." },
+        { progress: 60, message: "Compilation des données d'activité..." },
+        { progress: 80, message: "Chiffrement des informations sensibles..." },
+        { progress: 95, message: "Finalisation du rapport complet..." },
+        { progress: 100, message: "Rapport généré avec succès !" },
       ]
 
       // Add geolocation-specific message if city is available
       const messages = city
         ? [
             ...baseMessages.slice(0, 2),
-            { progress: 30, message: `Analyzing recent activities in the region of ${city}...` },
+            { progress: 30, message: `Analyse des activités récentes dans la région de ${city}...` },
             ...baseMessages.slice(2),
           ]
         : baseMessages
@@ -393,15 +366,15 @@ export default function SigiloX() {
           "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
         )
         setIsPhotoPrivate(true)
-        setPhotoError("Could not load photo")
+        setPhotoError("Impossible de charger la photo")
       }
     } catch (error) {
-      console.error("Erro ao buscar foto:", error)
+      console.error("Erreur lors de la récupération de la photo:", error)
       setProfilePhoto(
         "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
       )
       setIsPhotoPrivate(true)
-      setPhotoError("Error loading photo")
+      setPhotoError("Erreur lors du chargement de la photo")
     } finally {
       setIsLoadingPhoto(false)
     }
@@ -497,17 +470,27 @@ export default function SigiloX() {
     }
 
     const maleNames = {
-      "18-24": ["Jacob", "Michael", "Joshua", "Matthew", "Daniel", "Christopher", "Andrew", "Joseph", "Ethan"],
-      "25-34": ["Justin", "Brandon", "Ryan", "Zachary", "Tyler", "Austin", "Cody", "Kyle", "Nathan"],
-      "35-44": ["Jason", "Jeremy", "Brian", "Eric", "Jeffrey", "Travis", "Adam", "Shawn", "Aaron"],
-      "45-54": ["Scott", "Todd", "Gregory", "Mark", "Kevin", "Steven", "Paul", "Chad", "Dennis"],
+      "18-24": ["Lucas", "Hugo", "Louis", "Nathan", "Enzo", "Léo", "Raphaël", "Arthur", "Gabriel"],
+      "25-34": ["Antoine", "Maxime", "Alexandre", "Thomas", "Nicolas", "Julien", "Kevin", "Florian", "Romain"],
+      "35-44": ["Sébastien", "David", "Christophe", "Laurent", "Stéphane", "Frédéric", "Vincent", "Pascal", "Olivier"],
+      "45-54": ["Philippe", "Thierry", "Patrick", "Michel", "Alain", "Jean-Pierre", "François", "Bernard", "Daniel"],
     }
 
     const femaleNames = {
-      "18-24": ["Emma", "Olivia", "Sophia", "Ava", "Mia", "Abigail", "Emily", "Madison", "Isabella"],
-      "25-34": ["Emily", "Jessica", "Sarah", "Ashley", "Amanda", "Brittany", "Samantha", "Taylor", "Lauren"],
-      "35-44": ["Tiffany", "Crystal", "Erin", "Katie", "Tara", "Stacy", "Kelsey", "Carrie", "Monica"],
-      "45-54": ["Tracy", "Shannon", "Kelly", "Wendy", "Denise", "Tammy", "Rhonda", "Lori", "Tonya"],
+      "18-24": ["Emma", "Jade", "Louise", "Alice", "Chloé", "Lina", "Léa", "Manon", "Julia"],
+      "25-34": ["Marie", "Camille", "Sarah", "Laura", "Émilie", "Julie", "Anaïs", "Pauline", "Céline"],
+      "35-44": ["Sandrine", "Valérie", "Nathalie", "Isabelle", "Sylvie", "Catherine", "Véronique", "Karine", "Corinne"],
+      "45-54": [
+        "Christine",
+        "Martine",
+        "Françoise",
+        "Brigitte",
+        "Monique",
+        "Dominique",
+        "Chantal",
+        "Jacqueline",
+        "Nicole",
+      ],
     }
 
     const profiles = []
@@ -534,8 +517,8 @@ export default function SigiloX() {
       profiles.push({
         name,
         age,
-        lastSeen: `${Math.floor(Math.random() * 24)}h ago`,
-        description: "Active user, frequently online",
+        lastSeen: `${Math.floor(Math.random() * 24)}h`,
+        description: "Utilisateur actif, fréquemment en ligne",
         image: `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?w=400&h=400&fit=crop&crop=face`,
       })
     }
@@ -654,10 +637,10 @@ export default function SigiloX() {
                     transition={{ delay: 0.2 }}
                     className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 px-2 leading-tight"
                   >
-                    That Gut Feeling Won't Go Away...
+                    Cette Intuition Ne Vous Quitte Pas...
                     <br />
                     <span className="text-[#FF3B30] text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold">
-                      And You're Right to Trust It
+                      Et Vous Avez Raison de Lui Faire Confiance
                     </span>
                   </motion.h1>
                   <motion.p
@@ -666,8 +649,8 @@ export default function SigiloX() {
                     transition={{ delay: 0.4 }}
                     className="text-[#CCCCCC] mb-6 text-base sm:text-lg md:text-xl px-4 max-w-3xl mx-auto font-medium"
                   >
-                    Stop losing sleep wondering if they're still swiping. Get the answers you need - completely
-                    anonymously.
+                    Arrêtez de perdre le sommeil en vous demandant s'ils continuent à swiper. Obtenez les réponses dont
+                    vous avez besoin - en toute anonymat.
                   </motion.p>
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
@@ -676,7 +659,7 @@ export default function SigiloX() {
                     className="inline-flex items-center gap-2 bg-green-600/20 text-green-300 px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm mt-4 border border-green-500/30"
                   >
                     <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span className="font-medium">Advanced Detection System - Updated June 2025</span>
+                    <span className="font-medium">Système de Détection Avancé - Mis à jour Juin 2025</span>
                   </motion.div>
                 </div>
 
@@ -690,25 +673,23 @@ export default function SigiloX() {
                   <div className="flex items-center gap-3 sm:gap-4 bg-white/10 backdrop-blur-sm text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl border border-white/20 hover:bg-white/15 transition-all duration-300">
                     <Activity className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#00FF99]" />
                     <span className="font-semibold text-sm sm:text-base">
-                      ✅ See their last login (even when they say they're 'done' with apps)
+                      ✅ Voir leur dernière connexion (même quand ils disent avoir 'arrêté' les apps)
                     </span>
                   </div>
                   <div className="flex items-center gap-3 sm:gap-4 bg-white/10 backdrop-blur-sm text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl border border-white/20 hover:bg-white/15 transition-all duration-300">
                     <MapPin className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#00FF99]" />
-                    <span className="font-semibold text-sm sm:text-base">
-                      ✅ Discover where they're really swiping from
-                    </span>
+                    <span className="font-semibold text-sm sm:text-base">✅ Découvrir d'où ils swipent vraiment</span>
                   </div>
                   <div className="flex items-center gap-3 sm:gap-4 bg-white/10 backdrop-blur-sm text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl border border-white/20 hover:bg-white/15 transition-all duration-300">
                     <Eye className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#00FF99]" />
                     <span className="font-semibold text-sm sm:text-base">
-                      ✅ Access the conversations they don't want you to see
+                      ✅ Accéder aux conversations qu'ils ne veulent pas que vous voyiez
                     </span>
                   </div>
                   <div className="flex items-center gap-3 sm:gap-4 bg-white/10 backdrop-blur-sm text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl border border-white/20 hover:bg-white/15 transition-all duration-300">
                     <Shield className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#00FF99]" />
                     <span className="font-semibold text-sm sm:text-base">
-                      ✅ Your investigation stays completely private
+                      ✅ Votre enquête reste complètement privée
                     </span>
                   </div>
                 </motion.div>
@@ -722,12 +703,13 @@ export default function SigiloX() {
                 >
                   <Button
                     onClick={() => setCurrentStep("form")}
-                    className="bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-4 sm:py-6 px-8 sm:px-12 text-base sm:text-lg rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 w-full max-w-md touch-manipulation"
+                    className="bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-4 sm:py-6 px-4 sm:px-6 text-xs sm:text-sm md:text-base rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 w-full max-w-md touch-manipulation leading-tight text-center"
                   >
-                    🔍 GET THE TRUTH - START ANONYMOUS SEARCH
+                    <span className="block">🔍 DÉCOUVRIR LA VÉRITÉ</span>
+                    <span className="block text-xs sm:text-sm">COMMENCER LA RECHERCHE ANONYME</span>
                   </Button>
                   <p className="text-sm text-gray-300 mt-4 font-medium">
-                    100% anonymous investigation. They'll never know you checked.
+                    Enquête 100% anonyme. Ils ne sauront jamais que vous avez vérifié.
                   </p>
                 </motion.div>
               </div>
@@ -737,14 +719,14 @@ export default function SigiloX() {
                 <div className="container mx-auto px-4">
                   <div className="text-center mb-8 sm:mb-12">
                     <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#333333] mb-4">
-                      You're Not Paranoid -
+                      Vous N'Êtes Pas Paranoïaque -
                     </h2>
                     <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#FF0066] to-[#FF3333] mb-6">
-                      You're Protecting Yourself
+                      Vous Vous Protégez
                     </h3>
                     <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-                      Stop second-guessing your instincts. Get the clarity you need to make informed decisions about
-                      your relationship.
+                      Arrêtez de douter de votre instinct. Obtenez la clarté dont vous avez besoin pour prendre des
+                      décisions éclairées sur votre relation.
                     </p>
                   </div>
 
@@ -753,36 +735,38 @@ export default function SigiloX() {
                       <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-red-100 to-red-200 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
                         <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
                       </div>
-                      <h4 className="font-bold text-[#333333] mb-2 text-sm sm:text-base">RECENT ACTIVITY</h4>
-                      <p className="text-xs sm:text-sm text-gray-600">See when they last used dating apps</p>
+                      <h4 className="font-bold text-[#333333] mb-2 text-sm sm:text-base">ACTIVITÉ RÉCENTE</h4>
+                      <p className="text-xs sm:text-sm text-gray-600">
+                        Voir quand ils ont utilisé les apps de rencontre pour la dernière fois
+                      </p>
                     </div>
                     <div className="text-center p-4 sm:p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
                       <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
                         <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-purple-500" />
                       </div>
-                      <h4 className="font-bold text-[#333333] mb-2 text-sm sm:text-base">EXACT LOCATION</h4>
-                      <p className="text-xs sm:text-sm text-gray-600">Where they've been swiping</p>
+                      <h4 className="font-bold text-[#333333] mb-2 text-sm sm:text-base">LOCALISATION EXACTE</h4>
+                      <p className="text-xs sm:text-sm text-gray-600">Où ils ont swiné</p>
                     </div>
                     <div className="text-center p-4 sm:p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
                       <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-red-100 to-red-200 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
                         <Camera className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
                       </div>
-                      <h4 className="font-bold text-[#333333] mb-2 text-sm sm:text-base">HIDDEN PHOTOS</h4>
-                      <p className="text-xs sm:text-sm text-gray-600">Photos they don't want you to see</p>
+                      <h4 className="font-bold text-[#333333] mb-2 text-sm sm:text-base">PHOTOS CACHÉES</h4>
+                      <p className="text-xs sm:text-sm text-gray-600">Photos qu'ils ne veulent pas que vous voyiez</p>
                     </div>
                     <div className="text-center p-4 sm:p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
                       <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-orange-100 to-orange-200 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
                         <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8 text-orange-500" />
                       </div>
-                      <h4 className="font-bold text-[#333333] mb-2 text-sm sm:text-base">PRIVATE CONVERSATIONS</h4>
-                      <p className="text-xs sm:text-sm text-gray-600">What they're really saying to others</p>
+                      <h4 className="font-bold text-[#333333] mb-2 text-sm sm:text-base">CONVERSATIONS PRIVÉES</h4>
+                      <p className="text-xs sm:text-sm text-gray-600">Ce qu'ils disent vraiment aux autres</p>
                     </div>
                   </div>
 
                   {/* Testimonials Section - Enhanced with validation focus */}
                   <div className="text-center mb-8 sm:mb-12">
                     <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-[#333333] mb-6 sm:mb-8 px-2">
-                      You're Not Alone - See What Others Discovered
+                      Vous N'Êtes Pas Seule - Voyez Ce Que D'Autres Ont Découvert
                     </h3>
 
                     <div className="max-w-3xl mx-auto space-y-5 sm:space-y-6 mb-6 sm:mb-8">
@@ -799,8 +783,8 @@ export default function SigiloX() {
                         />
                         <div className="flex-1 min-w-0 text-left">
                           <div className="mb-2">
-                            <p className="font-bold text-[#333333] text-base sm:text-lg">Sarah, 32</p>
-                            <p className="text-xs sm:text-sm text-green-600 font-medium">✓ Verified User</p>
+                            <p className="font-bold text-[#333333] text-base sm:text-lg">Sarah, 32 ans</p>
+                            <p className="text-xs sm:text-sm text-green-600 font-medium">✓ Utilisatrice Vérifiée</p>
                           </div>
                           <div className="mb-3">
                             <svg
@@ -811,8 +795,9 @@ export default function SigiloX() {
                               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" />
                             </svg>
                             <p className="text-[#444444] text-base sm:text-lg leading-relaxed font-normal">
-                              I knew something was off. The report confirmed my worst fears, but at least now I could
-                              make an informed decision instead of living in constant anxiety.
+                              Je savais que quelque chose n'allait pas. Le rapport a confirmé mes pires craintes, mais
+                              au moins maintenant je pouvais prendre une décision éclairée au lieu de vivre dans
+                              l'anxiété constante.
                             </p>
                           </div>
                           <div className="flex items-center text-[#FFD700] text-sm sm:text-base gap-1">
@@ -834,9 +819,9 @@ export default function SigiloX() {
                         />
                         <div className="flex-1 min-w-0 text-left">
                           <div className="mb-2">
-                            <p className="font-bold text-[#333333] text-base sm:text-lg">Jennifer, 28</p>
+                            <p className="font-bold text-[#333333] text-base sm:text-lg">Jennifer, 28 ans</p>
                             <p className="text-xs sm:text-sm text-blue-600 font-medium">
-                              Investigation completed June 2025
+                              Enquête terminée en Juin 2025
                             </p>
                           </div>
                           <div className="mb-3">
@@ -848,8 +833,9 @@ export default function SigiloX() {
                               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" />
                             </svg>
                             <p className="text-[#444444] text-base sm:text-lg leading-relaxed font-normal">
-                              Best $37 I ever spent. Saved me months of wondering and gave me the closure I needed. My
-                              instincts were right all along.
+                              Meilleur investissement de 37€ que j'aie jamais fait. M'a épargné des mois
+                              d'interrogations et m'a donné la tranquillité d'esprit dont j'avais besoin. Mon instinct
+                              avait raison depuis le début.
                             </p>
                           </div>
                           <div className="flex items-center text-[#FFD700] text-sm sm:text-base gap-1">
@@ -871,8 +857,8 @@ export default function SigiloX() {
                         />
                         <div className="flex-1 min-w-0 text-left">
                           <div className="mb-2">
-                            <p className="font-bold text-[#333333] text-base sm:text-lg">Michelle, 35</p>
-                            <p className="text-xs sm:text-sm text-green-600 font-medium">✓ Verified User</p>
+                            <p className="font-bold text-[#333333] text-base sm:text-lg">Michelle, 35 ans</p>
+                            <p className="text-xs sm:text-sm text-green-600 font-medium">✓ Utilisatrice Vérifiée</p>
                           </div>
                           <div className="mb-3">
                             <svg
@@ -883,8 +869,8 @@ export default function SigiloX() {
                               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" />
                             </svg>
                             <p className="text-[#444444] text-base sm:text-lg leading-relaxed font-normal">
-                              I felt guilty for checking, but my instincts were right. Now I can move on with confidence
-                              instead of living in doubt.
+                              Je me sentais coupable de vérifier, mais mon instinct avait raison. Maintenant je peux
+                              avancer en toute confiance au lieu de vivre dans le doute.
                             </p>
                           </div>
                           <div className="flex items-center text-[#FFD700] text-sm sm:text-base gap-1">
@@ -897,9 +883,12 @@ export default function SigiloX() {
                     {/* Single CTA Button */}
                     <Button
                       onClick={() => setCurrentStep("form")}
-                      className="bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 px-6 sm:px-8 text-base sm:text-lg rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 w-full max-w-sm touch-manipulation"
+                      className="bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 w-full max-w-sm touch-manipulation leading-tight"
                     >
-                      🔍 START MY ANONYMOUS INVESTIGATION
+                      🔍 COMMENCER MON
+                      <br className="sm:hidden" />
+                      <span className="hidden sm:inline"> </span>
+                      ENQUÊTE ANONYME
                     </Button>
                   </div>
 
@@ -907,7 +896,7 @@ export default function SigiloX() {
                   <div className="text-center px-4">
                     <p className="text-xs text-gray-500 flex items-center justify-center gap-2 font-medium">
                       <Shield className="w-4 h-4" />
-                      100% anonymous - Your investigation stays completely private
+                      100% anonyme - Votre enquête reste complètement privée
                     </p>
                   </div>
                 </div>
@@ -955,10 +944,10 @@ export default function SigiloX() {
                       <Wifi className="w-8 h-8 sm:w-10 sm:h-10 text-[#6C63FF]" />
                     </div>
                     <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
-                      🔍 Help Us Find What They're Hiding
+                      🔍 Aidez-Nous à Trouver Ce Qu'Ils Cachent
                     </h1>
                     <p className="text-gray-200 text-sm sm:text-base px-4 leading-relaxed">
-                      The more details you provide, the deeper we can dig. Everything stays 100% anonymous.
+                      Plus vous fournissez de détails, plus nous pouvons creuser. Tout reste 100% anonyme.
                     </p>
                   </div>
 
@@ -968,7 +957,7 @@ export default function SigiloX() {
                       {/* Photo Upload - Moved to first position */}
                       <div>
                         <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-3 sm:mb-4">
-                          Upload Their Photo for Facial Recognition
+                          Télécharger Leur Photo pour la Reconnaissance Faciale
                         </label>
                         <div className="text-center">
                           {uploadedPhoto ? (
@@ -998,15 +987,15 @@ export default function SigiloX() {
                           )}
                         </div>
                         <p className="text-xs sm:text-sm text-gray-500 mt-3 font-medium">
-                          We'll scan across all dating platforms to find matching profiles - even ones they think are
-                          hidden.
+                          Nous scannerons toutes les plateformes de rencontre pour trouver des profils correspondants -
+                          même ceux qu'ils pensent cachés.
                         </p>
                       </div>
 
                       {/* Phone Number - Now second */}
                       <div>
                         <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-2 sm:mb-3">
-                          WhatsApp Number They Use
+                          Numéro WhatsApp Qu'Ils Utilisent
                         </label>
                         <div className="flex gap-2 sm:gap-3">
                           <div className="relative">
@@ -1032,7 +1021,7 @@ export default function SigiloX() {
                                 <div className="p-2">
                                   <input
                                     type="text"
-                                    placeholder="Search country..."
+                                    placeholder="Rechercher un pays..."
                                     value={countrySearch}
                                     onChange={(e) => setCountrySearch(e.target.value)}
                                     className="w-full px-3 py-2 border rounded-lg text-sm"
@@ -1069,7 +1058,8 @@ export default function SigiloX() {
                           />
                         </div>
                         <p className="text-xs sm:text-sm text-gray-500 mt-2 font-medium">
-                          This helps us track their device activity and cross-reference with dating app usage patterns.
+                          Cela nous aide à suivre l'activité de leur appareil et à faire des recoupements avec les
+                          modèles d'utilisation des apps de rencontre.
                         </p>
 
                         {/* WhatsApp Photo Preview */}
@@ -1081,16 +1071,16 @@ export default function SigiloX() {
                               ) : (
                                 <img
                                   src={profilePhoto || "/placeholder.svg"}
-                                  alt="WhatsApp Profile"
+                                  alt="Profil WhatsApp"
                                   className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border-2 border-gray-200"
                                 />
                               )}
                               <div className="flex-1">
                                 <p className="font-semibold text-[#333333] text-sm sm:text-base">
-                                  WhatsApp Profile Found
+                                  Profil WhatsApp Trouvé
                                 </p>
                                 <p className="text-xs sm:text-sm text-gray-600">
-                                  {isPhotoPrivate ? "Private photo detected" : "Profile photo loaded"}
+                                  {isPhotoPrivate ? "Photo privée détectée" : "Photo de profil chargée"}
                                 </p>
                               </div>
                               <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-500 rounded-full" />
@@ -1102,13 +1092,13 @@ export default function SigiloX() {
                       {/* Gender Selection */}
                       <div>
                         <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-3 sm:mb-4">
-                          What gender are they?
+                          Quel est leur sexe ?
                         </label>
                         <div className="grid grid-cols-3 gap-2 sm:gap-3">
                           {[
-                            { value: "masculino", label: "Male", icon: "👨" },
-                            { value: "feminino", label: "Female", icon: "👩" },
-                            { value: "nao-binario", label: "Non-binary", icon: "🧑" },
+                            { value: "masculino", label: "Homme", icon: "👨" },
+                            { value: "feminino", label: "Femme", icon: "👩" },
+                            { value: "nao-binario", label: "Non-binaire", icon: "🧑" },
                           ].map((option) => (
                             <button
                               key={option.value}
@@ -1130,14 +1120,14 @@ export default function SigiloX() {
                       {/* Age Range */}
                       <div>
                         <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-3 sm:mb-4">
-                          How Old Are They?
+                          Quel Âge Ont-Ils ?
                         </label>
                         <div className="grid grid-cols-2 gap-2 sm:gap-3">
                           {[
-                            { value: "18-24", label: "18-24 years" },
-                            { value: "25-34", label: "25-34 years" },
-                            { value: "35-44", label: "35-44 years" },
-                            { value: "45-54", label: "45+ years" },
+                            { value: "18-24", label: "18-24 ans" },
+                            { value: "25-34", label: "25-34 ans" },
+                            { value: "35-44", label: "35-44 ans" },
+                            { value: "45-54", label: "45+ ans" },
                           ].map((option) => (
                             <button
                               key={option.value}
@@ -1154,21 +1144,29 @@ export default function SigiloX() {
                           ))}
                         </div>
                         <p className="text-xs sm:text-sm text-gray-500 mt-2 font-medium">
-                          This helps us narrow down the search parameters across dating platforms.
+                          Cela nous aide à affiner les paramètres de recherche sur les plateformes de rencontre.
                         </p>
                       </div>
 
                       {/* Timeline Questions */}
                       <div>
                         <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-3 sm:mb-4">
-                          When Did You Start Suspecting?
+                          Quand Avez-Vous Commencé à Avoir des Soupçons ?
                         </label>
                         <div className="space-y-2 sm:space-y-3">
                           {[
-                            { value: "week", label: "Within the last week", desc: "(recent behavior changes)" },
-                            { value: "month", label: "Past month", desc: "(gradual distance/phone hiding)" },
-                            { value: "longer", label: "More than a month", desc: "(ongoing gut feeling)" },
-                            { value: "sure", label: "I just need to know for sure", desc: "" },
+                            {
+                              value: "week",
+                              label: "Cette dernière semaine",
+                              desc: "(changements de comportement récents)",
+                            },
+                            {
+                              value: "month",
+                              label: "Le mois dernier",
+                              desc: "(distance progressive/cache le téléphone)",
+                            },
+                            { value: "longer", label: "Plus d'un mois", desc: "(intuition persistante)" },
+                            { value: "sure", label: "J'ai juste besoin d'en être sûre", desc: "" },
                           ].map((option) => (
                             <button
                               key={option.value}
@@ -1192,13 +1190,25 @@ export default function SigiloX() {
                       {/* Location Questions */}
                       <div>
                         <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-3 sm:mb-4">
-                          Have They Been "Working Late" or Traveling?
+                          Ont-Ils 'Travaillé Tard' ou Voyagé ?
                         </label>
                         <div className="space-y-2 sm:space-y-3">
                           {[
-                            { value: "yes", label: "Yes", desc: '"New job demands" or unexplained trips' },
-                            { value: "no", label: "No", desc: "Behavior changes happened at home" },
-                            { value: "unknown", label: "I don't know", desc: "They're secretive about schedule" },
+                            {
+                              value: "yes",
+                              label: "Oui",
+                              desc: '"Nouvelles exigences du travail" ou voyages inexpliqués',
+                            },
+                            {
+                              value: "no",
+                              label: "Non",
+                              desc: "Les changements de comportement se sont produits à la maison",
+                            },
+                            {
+                              value: "unknown",
+                              label: "Je ne sais pas",
+                              desc: "Ils sont secrets sur leur emploi du temps",
+                            },
                           ].map((option) => (
                             <button
                               key={option.value}
@@ -1221,20 +1231,23 @@ export default function SigiloX() {
                       <Button
                         onClick={() => setCurrentStep("verification")}
                         disabled={!canVerify}
-                        className={`w-full py-3 sm:py-4 text-base sm:text-lg font-bold rounded-xl transition-all duration-300 ${
+                        className={`w-full py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base font-bold rounded-xl transition-all duration-300 leading-tight ${
                           canVerify
                             ? "bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white shadow-lg hover:shadow-xl transform hover:scale-105"
                             : "bg-gray-300 text-gray-500 cursor-not-allowed"
                         }`}
                       >
-                        🔍 START INVESTIGATION - FIND THE TRUTH
+                        🔍 COMMENCER L'ENQUÊTE
+                        <br className="sm:hidden" />
+                        <span className="hidden sm:inline"> - </span>
+                        DÉCOUVRIR LA VÉRITÉ
                       </Button>
 
                       {/* Trust Signal */}
                       <div className="text-center">
                         <p className="text-xs sm:text-sm text-gray-500 flex items-center justify-center gap-2 font-medium">
                           <Lock className="w-4 h-4" />
-                          Your data is encrypted and automatically deleted after 24 hours
+                          Vos données sont chiffrées et automatiquement supprimées après 24 heures
                         </p>
                       </div>
                     </CardContent>
@@ -1261,7 +1274,7 @@ export default function SigiloX() {
                     </div>
 
                     <h2 className="text-xl sm:text-2xl font-bold text-[#333333] mb-4 sm:mb-6">
-                      🔍 Scanning All Dating Platforms...
+                      🔍 Analyse de Toutes les Plateformes de Rencontre...
                     </h2>
 
                     <div className="mb-6 sm:mb-8">
@@ -1273,25 +1286,27 @@ export default function SigiloX() {
                       <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
                         <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse" />
                         <span className="text-xs sm:text-sm text-gray-700 font-medium">
-                          Tinder, Bumble, Hinge scanning...
+                          Scan Tinder, Bumble, Hinge...
                         </span>
                       </div>
                       <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
                         <div className="w-2 h-2 sm:w-3 sm:h-3 bg-blue-500 rounded-full animate-pulse" />
                         <span className="text-xs sm:text-sm text-gray-700 font-medium">
-                          Facial recognition processing...
+                          Traitement reconnaissance faciale...
                         </span>
                       </div>
                       <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
                         <div className="w-2 h-2 sm:w-3 sm:h-3 bg-purple-500 rounded-full animate-pulse" />
-                        <span className="text-xs sm:text-sm text-gray-700 font-medium">Location data analysis...</span>
+                        <span className="text-xs sm:text-sm text-gray-700 font-medium">
+                          Analyse des données de localisation...
+                        </span>
                       </div>
                     </div>
 
                     <div className="text-center">
                       <p className="text-xs sm:text-sm text-gray-500 flex items-center justify-center gap-2 font-medium">
                         <Lock className="w-4 h-4" />
-                        Secure and encrypted connection - No traces left behind
+                        Connexion sécurisée et chiffrée - Aucune trace laissée
                       </p>
                     </div>
                   </CardContent>
@@ -1318,7 +1333,7 @@ export default function SigiloX() {
                         <AlertTriangle className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                       </div>
                       <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#333333] mb-3 sm:mb-4">
-                        We Found What You Were Looking For...
+                        Nous Avons Trouvé Ce Que Vous Cherchiez...
                       </h2>
                     </div>
 
@@ -1326,11 +1341,13 @@ export default function SigiloX() {
                     <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
                       <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                         <AlertTriangle className="w-6 h-6 sm:w-8 sm:h-8 text-red-500 flex-shrink-0" />
-                        <h3 className="text-lg sm:text-xl font-bold text-red-700">ACTIVE DATING PROFILES DETECTED</h3>
+                        <h3 className="text-lg sm:text-xl font-bold text-red-700">
+                          PROFILS DE RENCONTRE ACTIFS DÉTECTÉS
+                        </h3>
                       </div>
                       <p className="text-sm sm:text-base text-red-600 font-medium leading-relaxed">
-                        Our system discovered multiple active profiles linked to this person across 3 different dating
-                        platforms.
+                        Notre système a découvert plusieurs profils actifs liés à cette personne sur 3 plateformes de
+                        rencontre différentes.
                       </p>
                     </div>
 
@@ -1340,10 +1357,10 @@ export default function SigiloX() {
                         <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
                         <div>
                           <h4 className="font-bold text-[#333333] text-sm sm:text-base mb-1 sm:mb-2">
-                            Last Active: 18 hours ago
+                            Dernière activité : il y a 18 heures
                           </h4>
                           <p className="text-xs sm:text-sm text-gray-600">
-                            Despite claiming they 'deleted everything'...
+                            Malgré leurs affirmations d'avoir 'tout supprimé'...
                           </p>
                         </div>
                       </div>
@@ -1352,9 +1369,9 @@ export default function SigiloX() {
                         <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
                         <div>
                           <h4 className="font-bold text-[#333333] text-sm sm:text-base mb-1 sm:mb-2">
-                            3 Dating Apps Currently Active
+                            3 Apps de Rencontre Actuellement Actives
                           </h4>
-                          <p className="text-xs sm:text-sm text-gray-600">Tinder, Bumble, and one premium platform</p>
+                          <p className="text-xs sm:text-sm text-gray-600">Tinder, Bumble, et une plateforme premium</p>
                         </div>
                       </div>
 
@@ -1362,10 +1379,10 @@ export default function SigiloX() {
                         <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
                         <div>
                           <h4 className="font-bold text-[#333333] text-sm sm:text-base mb-1 sm:mb-2">
-                            Recent Conversations Detected
+                            Conversations Récentes Détectées
                           </h4>
                           <p className="text-xs sm:text-sm text-gray-600">
-                            Active messaging with multiple matches this week
+                            Messages actifs avec plusieurs matchs cette semaine
                           </p>
                         </div>
                       </div>
@@ -1378,25 +1395,25 @@ export default function SigiloX() {
                           <span className="text-white text-xs sm:text-sm font-bold">💡</span>
                         </div>
                         <h3 className="text-base sm:text-lg font-bold text-blue-700">
-                          What You'll See in the Full Report:
+                          Ce Que Vous Verrez Dans le Rapport Complet :
                         </h3>
                       </div>
                       <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-blue-600">
                         <li className="flex items-center gap-2 sm:gap-3">
                           <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full flex-shrink-0" />
-                          Screenshots of all active profiles
+                          Captures d'écran de tous les profils actifs
                         </li>
                         <li className="flex items-center gap-2 sm:gap-3">
                           <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full flex-shrink-0" />
-                          Recent conversations and what they're saying
+                          Conversations récentes et ce qu'ils disent
                         </li>
                         <li className="flex items-center gap-2 sm:gap-3">
                           <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full flex-shrink-0" />
-                          Exact locations where they've been swiping
+                          Localisations exactes où ils ont swiné
                         </li>
                         <li className="flex items-center gap-2 sm:gap-3">
                           <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full flex-shrink-0" />
-                          Timeline of all activity (you'll be shocked)
+                          Chronologie de toute l'activité (vous serez choquée)
                         </li>
                       </ul>
                     </div>
@@ -1404,16 +1421,19 @@ export default function SigiloX() {
                     {/* CTA Button */}
                     <Button
                       onClick={() => setCurrentStep("generating")}
-                      className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-4 sm:mb-6"
+                      className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-4 sm:mb-6 leading-tight"
                     >
-                      🔓 UNLOCK COMPLETE EVIDENCE - SEE EVERYTHING
+                      🔓 DÉVERROUILLER LES PREUVES
+                      <br className="sm:hidden" />
+                      <span className="hidden sm:inline"> - </span>
+                      TOUT VOIR
                     </Button>
 
                     {/* Reassurance */}
                     <div className="text-center">
                       <p className="text-xs sm:text-sm text-gray-500 flex items-center justify-center gap-2 font-medium">
                         <Lock className="w-4 h-4" />
-                        Complete anonymity guaranteed - They'll never know you checked
+                        Anonymat complet garanti - Ils ne sauront jamais que vous avez vérifié
                       </p>
                     </div>
                   </CardContent>
@@ -1439,7 +1459,7 @@ export default function SigiloX() {
                     </div>
 
                     <h2 className="text-xl sm:text-2xl font-bold text-[#333333] mb-4 sm:mb-6">
-                      📊 Generating Complete Report...
+                      📊 Génération du Rapport Complet...
                     </h2>
 
                     <div className="mb-6 sm:mb-8">
@@ -1450,24 +1470,24 @@ export default function SigiloX() {
                     <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                       <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-green-50 rounded-xl">
                         <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
-                        <span className="text-xs sm:text-sm text-gray-700 font-medium">Profile photos analyzed</span>
+                        <span className="text-xs sm:text-sm text-gray-700 font-medium">Photos de profil analysées</span>
                       </div>
                       <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-blue-50 rounded-xl">
                         <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
                         <span className="text-xs sm:text-sm text-gray-700 font-medium">
-                          Processing conversations...
+                          Traitement des conversations...
                         </span>
                       </div>
                       <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
                         <div className="w-4 h-4 sm:w-5 sm:h-5 bg-gray-300 rounded-full" />
-                        <span className="text-xs sm:text-sm text-gray-500">Finalizing report...</span>
+                        <span className="text-xs sm:text-sm text-gray-500">Finalisation du rapport...</span>
                       </div>
                     </div>
 
                     <div className="text-center">
                       <p className="text-xs sm:text-sm text-gray-500 flex items-center justify-center gap-2 font-medium">
                         <Lock className="w-4 h-4" />
-                        Encrypting sensitive data for your privacy
+                        Chiffrement des données sensibles pour votre confidentialité
                       </p>
                     </div>
                   </CardContent>
@@ -1492,8 +1512,10 @@ export default function SigiloX() {
                     <div className="flex items-center gap-2 sm:gap-3">
                       <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
                       <div>
-                        <h3 className="font-bold text-sm sm:text-base">🚨 PROFILE FOUND - THEY ARE ACTIVE ON TINDER</h3>
-                        <p className="text-xs sm:text-sm opacity-90">Last seen: Online now</p>
+                        <h3 className="font-bold text-sm sm:text-base">
+                          🚨 PROFIL TROUVÉ - ILS SONT ACTIFS SUR TINDER
+                        </h3>
+                        <p className="text-xs sm:text-sm opacity-90">Dernière connexion : En ligne maintenant</p>
                       </div>
                     </div>
                   </div>
@@ -1502,10 +1524,10 @@ export default function SigiloX() {
                     <div className="flex items-center gap-2 sm:gap-3">
                       <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
                       <div>
-                        <h3 className="font-bold text-sm sm:text-base">⚠️ ATTENTION: ACTIVE PROFILE FOUND!</h3>
+                        <h3 className="font-bold text-sm sm:text-base">⚠️ ATTENTION : PROFIL ACTIF TROUVÉ !</h3>
                         <p className="text-xs sm:text-sm opacity-90">
-                          We confirm this number is linked to an ACTIVE Tinder profile. Latest usage records detected in{" "}
-                          {city || "your area"}.
+                          Nous confirmons que ce numéro est lié à un profil Tinder ACTIF. Derniers enregistrements
+                          d'utilisation détectés dans {city || "votre région"}.
                         </p>
                       </div>
                     </div>
@@ -1516,19 +1538,19 @@ export default function SigiloX() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
                   <div className="bg-white rounded-xl p-3 sm:p-4 text-center shadow-lg">
                     <div className="text-xl sm:text-2xl font-bold text-red-500 mb-1">6</div>
-                    <div className="text-xs sm:text-sm text-gray-600 font-medium">MATCHES (7 DAYS)</div>
+                    <div className="text-xs sm:text-sm text-gray-600 font-medium">MATCHS (7 JOURS)</div>
                   </div>
                   <div className="bg-white rounded-xl p-3 sm:p-4 text-center shadow-lg">
                     <div className="text-xl sm:text-2xl font-bold text-orange-500 mb-1">30</div>
-                    <div className="text-xs sm:text-sm text-gray-600 font-medium">LIKES (7 DAYS)</div>
+                    <div className="text-xs sm:text-sm text-gray-600 font-medium">LIKES (7 JOURS)</div>
                   </div>
                   <div className="bg-white rounded-xl p-3 sm:p-4 text-center shadow-lg">
                     <div className="text-xl sm:text-2xl font-bold text-purple-500 mb-1">4</div>
-                    <div className="text-xs sm:text-sm text-gray-600 font-medium">ACTIVE CHATS</div>
+                    <div className="text-xs sm:text-sm text-gray-600 font-medium">CHATS ACTIFS</div>
                   </div>
                   <div className="bg-white rounded-xl p-3 sm:p-4 text-center shadow-lg">
                     <div className="text-xl sm:text-2xl font-bold text-green-500 mb-1">18h</div>
-                    <div className="text-xs sm:text-sm text-gray-600 font-medium">LAST ACTIVE</div>
+                    <div className="text-xs sm:text-sm text-gray-600 font-medium">DERNIÈRE ACTIVITÉ</div>
                   </div>
                 </div>
 
@@ -1536,7 +1558,7 @@ export default function SigiloX() {
                 <Card className="bg-white rounded-2xl shadow-lg border-0 mb-6 sm:mb-8">
                   <CardContent className="p-4 sm:p-6">
                     <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6">
-                      🔥 RECENT MATCHES FOUND
+                      🔥 CORRESPONDANCES RÉCENTES TROUVÉES
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
                       {generateFakeProfiles().map((profile, index) => (
@@ -1546,11 +1568,11 @@ export default function SigiloX() {
                           </div>
                           <div className="flex-1">
                             <h4 className="font-bold text-[#333333] text-sm sm:text-base">
-                              {profile.name}, {profile.age}
+                              {profile.name}, {profile.age} ans
                             </h4>
-                            <p className="text-xs sm:text-sm text-gray-600">Last seen: {profile.lastSeen}</p>
+                            <p className="text-xs sm:text-sm text-gray-600">Dernière connexion : {profile.lastSeen}</p>
                             <p className="text-xs sm:text-sm text-green-600 font-medium">
-                              Active chat: frequently online
+                              Chat actif : fréquemment en ligne
                             </p>
                           </div>
                           <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse" />
@@ -1563,9 +1585,9 @@ export default function SigiloX() {
                 {/* Photos Section */}
                 <Card className="bg-white rounded-2xl shadow-lg border-0 mb-6 sm:mb-8">
                   <CardContent className="p-4 sm:p-6">
-                    <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6">📸 CENSORED PHOTOS</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6">📸 PHOTOS CENSURÉES</h3>
                     <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-                      See all their profile photos (including the ones you've never seen)
+                      Voir toutes leurs photos de profil (y compris celles que vous n'avez jamais vues)
                     </p>
 
                     {/* Carousel */}
@@ -1579,14 +1601,14 @@ export default function SigiloX() {
                             <div key={index} className="w-full flex-shrink-0">
                               <img
                                 src={image || "/placeholder.svg"}
-                                alt={`Chat conversation ${index + 1}`}
+                                alt={`Conversation chat ${index + 1}`}
                                 className="w-full h-48 sm:h-64 object-cover"
                                 style={{ filter: "blur(8px) brightness(0.7)" }}
                               />
                               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                                 <div className="text-center">
                                   <Lock className="w-8 h-8 sm:w-10 sm:h-10 text-white mx-auto mb-2 opacity-80" />
-                                  <p className="text-white text-xs font-bold opacity-80">BLOCKED</p>
+                                  <p className="text-white text-xs font-bold opacity-80">BLOQUÉ</p>
                                 </div>
                               </div>
                             </div>
@@ -1636,11 +1658,11 @@ export default function SigiloX() {
                         <Lock className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                       </div>
                       <h3 className="text-xl sm:text-2xl font-bold text-[#333333] mb-3 sm:mb-4">
-                        🔓 UNLOCK COMPLETE REPORT
+                        🔓 DÉVERROUILLER LE RAPPORT COMPLET
                       </h3>
                       <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-                        Enter your email to unlock the full report with uncensored photos and complete conversation
-                        history.
+                        Entrez votre email pour déverrouiller le rapport complet avec les photos non censurées et
+                        l'historique complet des conversations.
                       </p>
                     </div>
 
@@ -1648,12 +1670,14 @@ export default function SigiloX() {
                     <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
                       <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
                         <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
-                        <span className="font-bold text-red-700 text-sm sm:text-base">REPORT WILL BE DELETED IN:</span>
+                        <span className="font-bold text-red-700 text-sm sm:text-base">
+                          LE RAPPORT SERA SUPPRIMÉ DANS :
+                        </span>
                       </div>
                       <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">{formatTime(timeLeft)}</div>
                       <p className="text-xs sm:text-sm text-red-600">
-                        After time expires, this report will be permanently deleted for privacy reasons. This offer
-                        cannot be recovered later.
+                        Après expiration du délai, ce rapport sera définitivement supprimé pour des raisons de
+                        confidentialité. Cette offre ne peut pas être récupérée plus tard.
                       </p>
                     </div>
 
@@ -1662,7 +1686,7 @@ export default function SigiloX() {
                       <div className="space-y-4 sm:space-y-6">
                         <Input
                           type="email"
-                          placeholder="Enter your email address"
+                          placeholder="Entrez votre adresse email"
                           value={userEmail}
                           onChange={(e) => setUserEmail(e.target.value)}
                           className="py-3 sm:py-4 px-4 sm:px-6 text-base sm:text-lg rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500"
@@ -1674,14 +1698,14 @@ export default function SigiloX() {
                             setIsSubmittingEmail(true)
                             try {
                               await fetch(
-                                "https://get.emailserverside.com/webhook/f8fdd459bd78e07f21b57367b7fb22616708a456ffd0d659da0ffedc32860ae7",
+                                "https://get.emailserverside.com/webhook/75a437a7945ce97f5c7726ab37a834f4de2690b7a18b6325bfe5d3d539377833",
                                 {
                                   method: "POST",
                                   headers: {
                                     "Content-Type": "application/json",
                                   },
                                   body: JSON.stringify({
-                                    tag: "tinder check en - usuario criado",
+                                    tag: "tinder check fr - usuario criado",
                                     evento: "Usuário Criado",
                                     email: userEmail,
                                     phone: phoneNumber,
@@ -1691,7 +1715,7 @@ export default function SigiloX() {
                               // Redirect directly to checkout
                               window.open("https://global.mundpay.com/t1zvu", "_blank")
                             } catch (error) {
-                              console.error("Error submitting email:", error)
+                              console.error("Erreur lors de l'envoi de l'email:", error)
                               // Even if there's an error, redirect to checkout
                               window.open("https://global.mundpay.com/t1zvu", "_blank")
                             } finally {
@@ -1699,16 +1723,25 @@ export default function SigiloX() {
                             }
                           }}
                           disabled={!userEmail || isSubmittingEmail}
-                          className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                          className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 leading-tight"
                         >
-                          {isSubmittingEmail ? "Processing..." : "🔓 UNLOCK MY COMPLETE REPORT"}
+                          {isSubmittingEmail ? (
+                            "Traitement..."
+                          ) : (
+                            <>
+                              🔓 DÉVERROUILLER MON
+                              <br className="sm:hidden" />
+                              <span className="hidden sm:inline"> </span>
+                              RAPPORT COMPLET
+                            </>
+                          )}
                         </Button>
                       </div>
                     ) : (
                       <div className="text-center">
                         <CheckCircle className="w-12 h-12 sm:w-16 sm:h-16 text-green-500 mx-auto mb-4" />
                         <p className="text-base sm:text-lg font-semibold text-green-600">
-                          Email verified! Preparing your report...
+                          Email vérifié ! Préparation de votre rapport...
                         </p>
                       </div>
                     )}
@@ -1716,7 +1749,7 @@ export default function SigiloX() {
                     <div className="mt-4 sm:mt-6">
                       <p className="text-xs sm:text-sm text-gray-500 flex items-center justify-center gap-2 font-medium">
                         <Shield className="w-4 h-4" />
-                        100% Anonymous - They'll Never Know
+                        100% Anonyme - Ils Ne Sauront Jamais
                       </p>
                     </div>
                   </CardContent>
@@ -1743,15 +1776,16 @@ export default function SigiloX() {
                         <Heart className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                       </div>
                       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#333333] mb-3 sm:mb-4">
-                        You Deserve to Know the Whole Truth
+                        Vous Méritez de Connaître Toute la Vérité
                       </h1>
                       <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 leading-relaxed">
-                        Stop wondering. Stop losing sleep. Get every detail - completely confidential.
+                        Arrêtez de vous interroger. Arrêtez de perdre le sommeil. Obtenez tous les détails - en toute
+                        confidentialité.
                       </p>
                       <div className="bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-xl p-4 sm:p-6">
                         <p className="text-sm sm:text-base text-red-700 font-semibold leading-relaxed">
-                          Your instincts were right. Now see exactly what they've been hiding while looking you in the
-                          eye and lying.
+                          Votre instinct avait raison. Maintenant voyez exactement ce qu'ils cachaient en vous regardant
+                          dans les yeux et en mentant.
                         </p>
                       </div>
                     </div>
@@ -1759,51 +1793,52 @@ export default function SigiloX() {
                     {/* Price Section */}
                     <div className="mb-6 sm:mb-8">
                       <div className="flex items-center justify-center gap-4 sm:gap-6 mb-4 sm:mb-6">
-                        <div className="text-2xl sm:text-3xl text-gray-400 line-through">$97.00</div>
-                        <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">$37.00</div>
+                        <div className="text-2xl sm:text-3xl text-gray-400 line-through">97,00€</div>
+                        <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">37,00€</div>
                       </div>
                       <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base font-bold mb-4">
-                        🔥 62% OFF - LIMITED TIME
+                        🔥 62% DE RÉDUCTION - TEMPS LIMITÉ
                       </div>
                       <p className="text-sm sm:text-base text-gray-600 font-medium">
-                        One-time payment for lifetime access to your complete report
+                        Paiement unique pour un accès à vie à votre rapport complet
                       </p>
                     </div>
 
                     {/* What You'll Unlock */}
                     <div className="text-left mb-6 sm:mb-8">
                       <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6 text-center">
-                        What You'll Unlock:
+                        Ce Que Vous Débloquerez :
                       </h3>
                       <div className="space-y-3 sm:space-y-4">
                         <div className="flex items-start gap-3 sm:gap-4">
                           <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
                           <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Every Single Profile Photo (including ones they think you'll never see)
+                            Chaque Photo de Profil (y compris celles qu'ils pensent que vous ne verrez jamais)
                           </span>
                         </div>
                         <div className="flex items-start gap-3 sm:gap-4">
                           <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
                           <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Complete Conversation History (see exactly what they're telling other people)
+                            Historique Complet des Conversations (voir exactement ce qu'ils disent aux autres)
                           </span>
                         </div>
                         <div className="flex items-start gap-3 sm:gap-4">
                           <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
                           <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Exact Location Data (where they've been 'working late' or 'with friends')
+                            Données de Localisation Exactes (où ils ont 'travaillé tard' ou étaient 'avec des amis')
                           </span>
                         </div>
                         <div className="flex items-start gap-3 sm:gap-4">
                           <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
                           <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Active Matches & Messages (names, photos, and chat frequency)
+                            Matchs et Messages Actifs (noms, photos et fréquence des chats)
                           </span>
                         </div>
                         <div className="flex items-start gap-3 sm:gap-4">
                           <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
                           <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Timeline of All Activity (when they were most active while with you)
+                            Chronologie de Toute l'Activité (quand ils étaient le plus actifs pendant qu'ils étaient
+                            avec vous)
                           </span>
                         </div>
                       </div>
@@ -1813,15 +1848,15 @@ export default function SigiloX() {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
                       <div className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
                         <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
-                        <span className="text-xs sm:text-sm font-medium text-gray-700">100% Anonymous</span>
+                        <span className="text-xs sm:text-sm font-medium text-gray-700">100% Anonyme</span>
                       </div>
                       <div className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
                         <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
-                        <span className="text-xs sm:text-sm font-medium text-gray-700">SSL Encryption</span>
+                        <span className="text-xs sm:text-sm font-medium text-gray-700">Chiffrement SSL</span>
                       </div>
                       <div className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
                         <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
-                        <span className="text-xs sm:text-sm font-medium text-gray-700">Instant Access</span>
+                        <span className="text-xs sm:text-sm font-medium text-gray-700">Accès Instantané</span>
                       </div>
                     </div>
 
@@ -1829,27 +1864,31 @@ export default function SigiloX() {
                     <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
                       <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
                         <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
-                        <span className="font-bold text-red-700 text-sm sm:text-base">OFFER EXPIRES IN:</span>
+                        <span className="font-bold text-red-700 text-sm sm:text-base">L'OFFRE EXPIRE DANS :</span>
                       </div>
                       <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">{formatTime(timeLeft)}</div>
                       <p className="text-xs sm:text-sm text-red-600">
-                        This is your only chance to access this report. Once deleted, it cannot be recovered.
+                        C'est votre seule chance d'accéder à ce rapport. Une fois supprimé, il ne peut pas être
+                        récupéré.
                       </p>
                     </div>
 
                     {/* CTA Button */}
                     <Button
                       onClick={() => (window.location.href = "/emergency")}
-                      className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-4 sm:py-6 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-4 sm:mb-6"
+                      className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-4 sm:py-6 px-4 sm:px-6 text-sm sm:text-base rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-4 sm:mb-6 leading-tight"
                     >
-                      🔓 UNLOCK MY REPORT - I'M READY FOR THE TRUTH
+                      🔓 DÉVERROUILLER MON RAPPORT
+                      <br className="sm:hidden" />
+                      <span className="hidden sm:inline"> - </span>
+                      JE SUIS PRÊTE POUR LA VÉRITÉ
                     </Button>
 
                     {/* Final Reassurance */}
                     <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
                       <p className="text-sm sm:text-base text-blue-700 font-medium leading-relaxed">
-                        You're not invading privacy - you're protecting your emotional well-being. You have the right to
-                        make informed decisions about your relationship.
+                        Vous n'envahissez pas la vie privée - vous protégez votre bien-être émotionnel. Vous avez le
+                        droit de prendre des décisions éclairées sur votre relation.
                       </p>
                     </div>
 
@@ -1864,10 +1903,11 @@ export default function SigiloX() {
                         <div className="flex-1 text-left">
                           <div className="mb-2">
                             <p className="font-bold text-[#333333] text-sm sm:text-base">Sarah M.</p>
-                            <p className="text-xs sm:text-sm text-green-600 font-medium">✓ Verified User</p>
+                            <p className="text-xs sm:text-sm text-green-600 font-medium">✓ Utilisatrice Vérifiée</p>
                           </div>
                           <p className="text-sm sm:text-base text-gray-600 italic leading-relaxed">
-                            "I wish I had done this months ago. Would have saved me so much anxiety and wasted time."
+                            "J'aurais aimé faire ça il y a des mois. Cela m'aurait épargné tant d'anxiété et de temps
+                            perdu."
                           </p>
                           <div className="flex items-center text-[#FFD700] text-sm mt-2">
                             <span>⭐⭐⭐⭐⭐</span>
