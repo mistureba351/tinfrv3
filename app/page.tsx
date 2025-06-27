@@ -336,36 +336,29 @@ export default function SigiloX() {
         body: JSON.stringify({ phone: phone }),
       })
 
-      // Check if response is ok first
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+      // --- NEW robust handling (replaces old !response.ok throw) ---
+      let data: any = null
+
+      try {
+        data = await response.json()
+      } catch {
+        // if the body is not valid JSON we still want to fall back safely
+        data = {}
       }
 
-      // Check if response is JSON
-      const contentType = response.headers.get("content-type")
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new Error("Response is not JSON")
-      }
-
-      const data = await response.json()
-
-      if (data.success) {
-        if (data.is_photo_private) {
-          setProfilePhoto(
-            "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-          )
-          setIsPhotoPrivate(true)
-        } else {
-          setProfilePhoto(data.result)
-          setIsPhotoPrivate(false)
-        }
-      } else {
+      // When the API answers with non-200 we still carry on with a safe payload
+      if (!response.ok || !data?.success) {
         setProfilePhoto(
           "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
         )
         setIsPhotoPrivate(true)
         setPhotoError("Impossible de charger la photo")
+        return
       }
+
+      // ✅ Successful, public photo
+      setProfilePhoto(data.result)
+      setIsPhotoPrivate(!!data.is_photo_private)
     } catch (error) {
       console.error("Erreur lors de la récupération de la photo:", error)
       setProfilePhoto(
@@ -710,9 +703,13 @@ export default function SigiloX() {
                     onClick={() => setCurrentStep("form")}
                     className="bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-4 sm:py-6 px-4 sm:px-6 text-xs sm:text-sm md:text-base rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 w-full max-w-md touch-manipulation leading-tight text-center"
                   >
-                    <span className="block">🔍 DÉCOUVRIR LA VÉRITÉ</span>
-                    <span className="block text-xs sm:text-sm">COMMENCER LA RECHERCHE ANONYME</span>
+                    <span className="block break-words whitespace-normal text-wrap text-center">
+                      🔍 DÉCOUVRIR LA VÉRITÉ
+                      <br />
+                      COMMENCER LA RECHERCHE ANONYME
+                    </span>
                   </Button>
+
                   <p className="text-sm text-gray-300 mt-4 font-medium">
                     Enquête 100% anonyme. Ils ne sauront jamais que vous avez vérifié.
                   </p>
