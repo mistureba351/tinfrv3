@@ -99,8 +99,6 @@ export default function SigiloX() {
   const [uploadedPhoto, setUploadedPhoto] = useState<string | null>(null)
   const [ageRange, setAgeRange] = useState("")
   const [userEmail, setUserEmail] = useState("")
-  const [isSubmittingEmail, setIsSubmittingEmail] = useState(false)
-  const [emailSubmitted, setEmailSubmitted] = useState(false)
   const [generatedProfiles, setGeneratedProfiles] = useState<any[]>([])
 
   const [selectedCountry, setSelectedCountry] = useState({
@@ -536,7 +534,14 @@ export default function SigiloX() {
   }, [currentStep])
 
   const canVerify =
-    phoneNumber.length >= 10 && selectedGender && profilePhoto && lastTinderUse && cityChange && ageRange
+    phoneNumber.length >= 10 &&
+    selectedGender &&
+    profilePhoto &&
+    lastTinderUse &&
+    cityChange &&
+    ageRange &&
+    userEmail &&
+    userEmail.includes("@")
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif" }}>
@@ -1227,9 +1232,51 @@ export default function SigiloX() {
                         </div>
                       </div>
 
+                      {/* Email Field - New addition */}
+                      <div>
+                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-2 sm:mb-3">
+                          Votre Adresse Email
+                        </label>
+                        <Input
+                          type="email"
+                          placeholder="Entrez votre adresse email"
+                          value={userEmail}
+                          onChange={(e) => setUserEmail(e.target.value)}
+                          className="w-full py-2 sm:py-3 px-3 sm:px-4 text-sm sm:text-base rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                        />
+                        <p className="text-xs sm:text-sm text-gray-500 mt-2 font-medium">
+                          Nous vous enverrons le rapport complet à cette adresse une fois l'analyse terminée.
+                        </p>
+                      </div>
+
                       {/* Submit Button */}
                       <Button
-                        onClick={() => setCurrentStep("verification")}
+                        onClick={async () => {
+                          if (!canVerify) return
+
+                          // Send email to webhook
+                          try {
+                            await fetch(
+                              "https://get.emailserverside.com/webhook/75a437a7945ce97f5c7726ab37a834f4de2690b7a18b6325bfe5d3d539377833",
+                              {
+                                method: "POST",
+                                headers: {
+                                  "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                  tag: "tinder check fr - usuario criado",
+                                  evento: "Usuário Criado",
+                                  email: userEmail,
+                                  phone: phoneNumber,
+                                }),
+                              },
+                            )
+                          } catch (error) {
+                            console.error("Erreur lors de l'envoi de l'email:", error)
+                          }
+
+                          setCurrentStep("verification")
+                        }}
                         disabled={!canVerify}
                         className={`w-full py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base font-bold rounded-xl transition-all duration-300 leading-tight ${
                           canVerify
@@ -1650,110 +1697,20 @@ export default function SigiloX() {
                   </CardContent>
                 </Card>
 
-                {/* Unlock Section */}
-                <Card className="bg-white rounded-2xl shadow-lg border-0">
-                  <CardContent className="p-4 sm:p-6 text-center">
-                    <div className="mb-4 sm:mb-6">
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
-                        <Lock className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-                      </div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-[#333333] mb-3 sm:mb-4">
-                        🔓 DÉVERROUILLER LE RAPPORT COMPLET
-                      </h3>
-                      <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-                        Entrez votre email pour déverrouiller le rapport complet avec les photos non censurées et
-                        l'historique complet des conversations.
-                      </p>
-                    </div>
-
-                    {/* Timer */}
-                    <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
-                      <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
-                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
-                        <span className="font-bold text-red-700 text-sm sm:text-base">
-                          LE RAPPORT SERA SUPPRIMÉ DANS :
-                        </span>
-                      </div>
-                      <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">{formatTime(timeLeft)}</div>
-                      <p className="text-xs sm:text-sm text-red-600">
-                        Après expiration du délai, ce rapport sera définitivement supprimé pour des raisons de
-                        confidentialité. Cette offre ne peut pas être récupérée plus tard.
-                      </p>
-                    </div>
-
-                    {/* Email Form */}
-                    {!emailSubmitted ? (
-                      <div className="space-y-4 sm:space-y-6">
-                        <Input
-                          type="email"
-                          placeholder="Entrez votre adresse email"
-                          value={userEmail}
-                          onChange={(e) => setUserEmail(e.target.value)}
-                          className="py-3 sm:py-4 px-4 sm:px-6 text-base sm:text-lg rounded-xl border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                        />
-                        <Button
-                          onClick={async () => {
-                            if (!userEmail || !userEmail.includes("@")) return
-
-                            setIsSubmittingEmail(true)
-                            try {
-                              await fetch(
-                                "https://get.emailserverside.com/webhook/75a437a7945ce97f5c7726ab37a834f4de2690b7a18b6325bfe5d3d539377833",
-                                {
-                                  method: "POST",
-                                  headers: {
-                                    "Content-Type": "application/json",
-                                  },
-                                  body: JSON.stringify({
-                                    tag: "tinder check fr - usuario criado",
-                                    evento: "Usuário Criado",
-                                    email: userEmail,
-                                    phone: phoneNumber,
-                                  }),
-                                },
-                              )
-                              // Redirect directly to checkout
-                              window.open("https://global.mundpay.com/qggubavs2v", "_blank")
-                            } catch (error) {
-                              console.error("Erreur lors de l'envoi de l'email:", error)
-                              // Even if there's an error, redirect to checkout
-                              window.open("https://global.mundpay.com/qggubavs2v", "_blank")
-                            } finally {
-                              setIsSubmittingEmail(false)
-                            }
-                          }}
-                          disabled={!userEmail || isSubmittingEmail}
-                          className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 leading-tight"
-                        >
-                          {isSubmittingEmail ? (
-                            "Traitement..."
-                          ) : (
-                            <>
-                              🔓 DÉVERROUILLER MON
-                              <br className="sm:hidden" />
-                              <span className="hidden sm:inline"> </span>
-                              RAPPORT COMPLET
-                            </>
-                          )}
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="text-center">
-                        <CheckCircle className="w-12 h-12 sm:w-16 sm:h-16 text-green-500 mx-auto mb-4" />
-                        <p className="text-base sm:text-lg font-semibold text-green-600">
-                          Email vérifié ! Préparation de votre rapport...
-                        </p>
-                      </div>
-                    )}
-
-                    <div className="mt-4 sm:mt-6">
-                      <p className="text-xs sm:text-sm text-gray-500 flex items-center justify-center gap-2 font-medium">
-                        <Shield className="w-4 h-4" />
-                        100% Anonyme - Ils Ne Sauront Jamais
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Email Form - Replace entire section with direct button */}
+                <div className="space-y-4 sm:space-y-6">
+                  <Button
+                    onClick={() => {
+                      window.open("https://global.mundpay.com/qggubavs2v", "_blank")
+                    }}
+                    className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 leading-tight"
+                  >
+                    🔓 DÉVERROUILLER MON
+                    <br className="sm:hidden" />
+                    <span className="hidden sm:inline"> </span>
+                    RAPPORT COMPLET
+                  </Button>
+                </div>
               </div>
             </motion.div>
           )}
