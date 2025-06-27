@@ -1694,7 +1694,24 @@ export default function SigiloX() {
                   </CardContent>
                 </Card>
 
-                {/* Email Form - Replace entire section with direct button */}
+                {/* Urgency Timer Card - NEW */}
+                <Card className="bg-gradient-to-r from-red-500 to-red-600 text-white rounded-2xl shadow-lg border-0 mb-6 sm:mb-8">
+                  <CardContent className="p-4 sm:p-6 text-center">
+                    <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                      <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
+                      <span className="font-bold text-sm sm:text-base">LE RAPPORT SERA SUPPRIMÉ DANS :</span>
+                    </div>
+                    <div className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 tracking-wider">
+                      {formatTime(timeLeft)}
+                    </div>
+                    <p className="text-xs sm:text-sm opacity-90 leading-relaxed">
+                      Après l'expiration du temps, ce rapport sera définitivement supprimé pour des raisons de
+                      confidentialité. Cette offre ne pourra pas être récupérée ultérieurement.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* Unlock Button */}
                 <div className="space-y-4 sm:space-y-6">
                   <Button
                     onClick={() => {
@@ -1704,8 +1721,7 @@ export default function SigiloX() {
                   >
                     🔓 DÉVERROUILLER MON
                     <br className="sm:hidden" />
-                    <span className="hidden sm:inline"> </span>
-                    RAPPORT COMPLET
+                    <span className="hidden sm:inline"> </span>RAPPORT COMPLET
                   </Button>
                 </div>
               </div>
