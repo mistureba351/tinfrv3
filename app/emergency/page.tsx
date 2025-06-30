@@ -60,7 +60,7 @@ export default function EmergencyPage() {
       // Verificar se o script OneClick está disponível
       if (typeof window !== "undefined" && window.fornpay) {
         // Tentar acionar o OneClick com o ID do fornpay
-        window.fornpay.trigger("ihkj3cpssf")
+        window.fornpay.trigger("edgvysipat")
       } else {
         console.warn("OneClick script not loaded yet")
         // Fallback: você pode adicionar uma lógica alternativa aqui
@@ -74,7 +74,7 @@ export default function EmergencyPage() {
   const handleDownsell = () => {
     try {
       // Redirecionar para o downsell
-      window.location.href = "https://www.tindercheck.online/emergency-d"
+      window.location.href = "https://www.tindercheck.site/emergency-d"
     } catch (error) {
       console.error("Error redirecting to downsell:", error)
     }
@@ -122,11 +122,12 @@ export default function EmergencyPage() {
         <Card className="border-orange-200 bg-orange-50">
           <CardContent className="p-6 text-center">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
-              Notre algorithme basé sur les données, utilisant mots et photos, a détecté des messages et fichiers
-              suspects…
+              Notre algorithme basé sur les données, utilisant des mots et des photos, a détecté des messages et
+              fichiers suspects…
             </h2>
             <p className="text-lg font-semibold text-green-600">
-              Rapport exporté avec 98% de précision le : <span className="text-blue-600">{currentDateTime}</span>
+              Report exported with 98% accuracy on:{" "}
+              <span className="text-blue-600">Rapport exporté avec 98% de précision le :{currentDateTime}</span>
             </p>
           </CardContent>
         </Card>
@@ -151,7 +152,7 @@ export default function EmergencyPage() {
         <Card className="border-red-200 bg-red-50">
           <CardContent className="p-6">
             <h3 className="text-xl font-bold text-gray-800 mb-6 text-center">
-              Nous avons trouvé 58 messages suspects :
+              Nous avons trouvé <span className="text-red-600 font-bold">58</span> messages suspects :
             </h3>
             <div className="space-y-3">
               {suspiciousStats.map((stat, index) => (
@@ -256,7 +257,7 @@ export default function EmergencyPage() {
               <div className="inline-flex items-center gap-2 bg-blue-100 px-4 py-2 rounded-full">
                 <MapPin className="w-5 h-5 text-blue-600" />
                 <span className="font-semibold text-blue-800">
-                  {city ? `Vu pour la dernière fois à ${city}` : "Locating..."}
+                  {city ? `Vu pour la dernière fois à ${city}` : "Localisation..."}
                 </span>
               </div>
             </div>
@@ -266,8 +267,8 @@ export default function EmergencyPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-200 to-green-200 opacity-50"></div>
               <div className="relative z-10 text-center">
                 <div className="w-4 h-4 bg-red-500 rounded-full mx-auto mb-2 animate-pulse"></div>
-                <p className="text-sm font-semibold text-gray-700">Approximate Location</p>
-                <p className="text-xs text-gray-600">{city || "Loading location..."}</p>
+                <p className="text-sm font-semibold text-gray-700">Localisation approximative</p>
+                <p className="text-xs text-gray-600">{city || "Chargement de la localisation..."}</p>
               </div>
               {/* Mock location circle */}
               <div className="absolute inset-0 flex items-center justify-center">
@@ -290,20 +291,23 @@ export default function EmergencyPage() {
             </div>
 
             <div className="space-y-4 text-left max-w-2xl mx-auto text-gray-700">
-              <p>I know you're tired of guessing and want some real answers.</p>
+              <p>Je sais que vous en avez assez de deviner et que vous voulez de vraies réponses.</p>
               <p>
-                Our satellite tracking system is the most advanced technology to find out what's going on. But there's a
-                catch: keeping the satellites and servers running 24/7 is expensive.
+                Notre système de suivi par satellite est la technologie la plus avancée pour découvrir ce qui se passe.
+                Mais il y a un hic : maintenir les satellites et serveurs en fonctionnement 24h/24 et 7j/7 coûte cher.
               </p>
-              <p>That's why, unfortunately, we can't provide more than 5% of the information we uncover for free.</p>
-              <p>The good news? You don't have to spend a fortune to hire a private investigator.</p>
               <p>
-                We've developed an app that puts that same technology in your hands and lets you track everything
-                discreetly and efficiently on your own.
+                C'est pourquoi, malheureusement, nous ne pouvons pas fournir plus de 5% des informations que nous
+                découvrons gratuitement.
+              </p>
+              <p>La bonne nouvelle ? Vous n'avez pas besoin de dépenser une fortune pour engager un détective privé.</p>
+              <p>
+                Nous avons développé une application qui met cette même technologie entre vos mains et vous permet de
+                tout traquer discrètement et efficacement par vous-même.
               </p>
               <p className="font-semibold text-red-600">
-                It's time to stop guessing and find out the truth. The answers are waiting for you. Click now and get
-                instant access – before it's too late!
+                Il est temps d'arrêter de deviner et de découvrir la vérité. Les réponses vous attendent. Cliquez
+                maintenant et obtenez un accès instantané – avant qu'il ne soit trop tard !
               </p>
             </div>
           </CardContent>
@@ -315,7 +319,8 @@ export default function EmergencyPage() {
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-red-600 mb-2">🔥 90% DE RÉDUCTION AUJOURD'HUI SEULEMENT !</h3>
               <p className="text-lg font-semibold text-gray-700">
-                L'offre expire dans : <span className="text-red-600 font-mono">{formatTime(timeLeft)}</span>
+                Offer expires in:{" "}
+                <span className="text-red-600 font-mono">L'offre expire dans :{formatTime(timeLeft)}</span>
               </p>
             </div>
 
@@ -339,7 +344,7 @@ export default function EmergencyPage() {
                 <div style={{ width: "auto", maxWidth: "400px", margin: "0 auto" }}>
                   <button
                     onClick={handleMainButton}
-                    data-fornpay="ihkj3cpssf"
+                    data-fornpay="edgvysipat"
                     className="fornpay_btn"
                     style={{
                       background: "#28a745",
@@ -364,7 +369,7 @@ export default function EmergencyPage() {
                   </button>
                   <button
                     onClick={handleDownsell}
-                    data-downsell="https://www.tindercheck.online/emergency-d"
+                    data-downsell="https://www.tindercheck.site/emergency-d"
                     className="fornpay_downsell"
                     style={{
                       color: "#004faa",
@@ -396,19 +401,22 @@ export default function EmergencyPage() {
             <div className="w-20 h-20 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center">
               <Shield className="w-10 h-10 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-green-700 mb-4">Garantie Satisfaction 30 Jours ou Remboursé</h3>
+            <h3 className="text-xl font-bold text-green-700 mb-4">
+              Garantie Satisfaction ou Remboursement de 30 Jours
+            </h3>
             <div className="text-gray-700 space-y-3 max-w-2xl mx-auto">
               <p>
-                Under French law, we are required to refund you if you are not satisfied with the app within 14 days.
-                However, because we are so confident that our app works perfectly, we have extended this guarantee to 30
-                days.
+                Selon la loi française, nous sommes tenus de vous rembourser si vous n'êtes pas satisfait de
+                l'application dans les 14 jours. Cependant, parce que nous sommes si confiants que notre application
+                fonctionne parfaitement, nous avons étendu cette garantie à 30 jours.
               </p>
               <p>
-                This means you have twice as much time to test the app and see the results for yourself – completely
-                risk-free. If for any reason you are not satisfied, we will refund you – no questions asked.
+                Cela signifie que vous avez deux fois plus de temps pour tester l'application et voir les résultats par
+                vous-même – complètement sans risque. Si pour une raison quelconque vous n'êtes pas satisfait, nous vous
+                rembourserons – sans poser de questions.
               </p>
               <p className="font-semibold">
-                If you have any questions regarding refunds, please contact Customer Service.
+                Si vous avez des questions concernant les remboursements, veuillez contacter le Service Client.
               </p>
             </div>
           </CardContent>

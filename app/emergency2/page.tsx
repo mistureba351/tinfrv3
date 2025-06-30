@@ -38,7 +38,7 @@ export default function Emergency2Page() {
     if (typeof window !== "undefined" && (window as any).fornpay) {
       try {
         // Aciona o OneClick com o data-fornpay
-        ;(window as any).fornpay.trigger("dmtih5m5io")
+        ;(window as any).fornpay.trigger("vj0t34cecg")
       } catch (error) {
         console.error("Erro ao acionar OneClick:", error)
         // Fallback: redirecionar para uma página de checkout manual se necessário
@@ -54,7 +54,7 @@ export default function Emergency2Page() {
   // Handler para o downsell
   const handleDownsell = () => {
     if (typeof window !== "undefined") {
-      window.location.href = "https://www.tindercheck.online/thanks"
+      window.location.href = "https://www.tindercheck.site/thanks"
     }
   }
 
@@ -83,7 +83,7 @@ export default function Emergency2Page() {
             </div>
 
             <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              Récupérer les Messages Supprimés et le Contenu Caché
+              Recover <span className="text-red-600">Récupérer les Messages Supprimés</span>
               <br />& Hidden Content
             </h1>
 
@@ -105,25 +105,27 @@ export default function Emergency2Page() {
             {/* Emotional Text Block */}
             <div className="mb-12">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">
-                Découvrez Ce Qu'Ils Vous Cachent
+                Découvrez Ce Qu'ils Vous Cachent
               </h2>
 
               <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
                 <p className="text-xl mb-6">
-                  Félicitations pour votre courage à chercher la vérité sur votre relation. Il est douloureux d'imaginer
-                  votre bien-aimé partager des moments avec quelqu'un d'autre, mais vous avez l'intelligence et la
-                  détermination pour découvrir la vérité.
+                  <strong>Félicitations pour votre courage à chercher la vérité sur votre relation.</strong> Il est
+                  douloureux d'imaginer votre bien-aimé partageant des moments avec quelqu'un d'autre, mais vous avez
+                  l'intelligence et la détermination pour découvrir la vérité.
                 </p>
 
                 <p className="text-lg mb-6">
-                  Notre application avancée vous permet de récupérer tous les messages, photos et vidéos supprimés sans
-                  laisser aucun secret vous être caché.
+                  Notre application avancée vous permet de{" "}
+                  <strong>récupérer tous les messages, photos et vidéos supprimés</strong> sans laisser aucun secret
+                  vous être caché.
                 </p>
 
                 <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 mb-6">
                   <p className="text-lg mb-4">
-                    <strong>Cette offre exclusive n'est disponible que sur cette page.</strong> Normalement évaluée à
-                    100€, vous pouvez l'obtenir maintenant pour seulement 47€ (plus de 50% de réduction).
+                    <strong>Cette offre exclusive n'est disponible que sur cette page.</strong> Normalement évaluée à{" "}
+                    <span className="line-through text-red-500">100€</span>, vous pouvez l'obtenir maintenant pour
+                    seulement <span className="text-green-600 font-bold text-2xl">47€</span> (plus de 50% de réduction).
                   </p>
                 </div>
               </div>
@@ -140,7 +142,7 @@ export default function Emergency2Page() {
               <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
                 <ImageIcon className="w-12 h-12 text-purple-600 mx-auto mb-4" />
                 <h3 className="font-bold text-lg mb-2">Photos Cachées</h3>
-                <p className="text-gray-600">Accéder aux images supprimées et échanges de photos privées</p>
+                <p className="text-gray-600">Accéder aux images supprimées et aux échanges de photos privées</p>
               </div>
 
               <div className="text-center p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-xl">
@@ -174,20 +176,20 @@ export default function Emergency2Page() {
 
             <div className="text-center mb-8">
               <p className="text-lg text-gray-700 mb-6">
-                Agissez maintenant pour éviter la tromperie et assurer l'honnêteté dans votre relation. Cliquez
-                ci-dessous avant que cette opportunité ne disparaisse.
+                <strong>Agissez maintenant pour éviter la tromperie et assurer l'honnêteté dans votre relation.</strong>{" "}
+                Cliquez ci-dessous avant que cette opportunité ne disparaisse.
               </p>
             </div>
 
             {/* One-Click Purchase Section - CORRIGIDO */}
             <div className="text-center">
               <div style={{ width: "auto", maxWidth: "400px", margin: "0 auto" }}>
-                <button onClick={handleMainButton} data-fornpay="dmtih5m5io" className="fornpay_btn" type="button">
+                <button onClick={handleMainButton} data-fornpay="vj0t34cecg" className="fornpay_btn" type="button">
                   OUI, JE VEUX VOIR LES MESSAGES SUPPRIMÉS ET CACHÉS
                 </button>
                 <button
                   onClick={handleDownsell}
-                  data-downsell="https://www.tindercheck.online/thanks"
+                  data-downsell="https://www.tindercheck.site/thanks"
                   className="fornpay_downsell"
                   type="button"
                 >
@@ -209,7 +211,7 @@ export default function Emergency2Page() {
               <Shield className="w-6 h-6 text-green-600" />
               <span>Paiement Sécurisé</span>
               <span>•</span>
-              <span>Cryptage SSL</span>
+              <span>Crypté SSL</span>
               <span>•</span>
               <span>Garantie de Remboursement</span>
             </div>

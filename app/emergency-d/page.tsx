@@ -60,7 +60,7 @@ export default function EmergencyDownsellPage() {
       // Verificar se o script OneClick está disponível
       if (typeof window !== "undefined" && window.fornpay) {
         // Tentar acionar o OneClick com o ID do downsell
-        window.fornpay.trigger("ta7acpjusv")
+        window.fornpay.trigger("maiuxddyen")
       } else {
         console.warn("OneClick script not loaded yet")
         // Fallback: você pode adicionar uma lógica alternativa aqui
@@ -73,7 +73,7 @@ export default function EmergencyDownsellPage() {
   const handleDeclineOffer = () => {
     try {
       // Redirecionar para o próximo downsell
-      window.location.href = "https://www.tindercheck.online/emergency2"
+      window.location.href = "https://www.tindercheck.site/emergency2"
     } catch (error) {
       console.error("Error redirecting to next downsell:", error)
     }
@@ -118,8 +118,8 @@ export default function EmergencyDownsellPage() {
               <div style={{ width: "auto", maxWidth: "400px", margin: "0 auto" }}>
                 <button
                   onClick={handleDownsellButton}
-                  data-fornpay="ta7acpjusv"
-                  data-downsell="https://www.tindercheck.online/emergency2"
+                  data-fornpay="maiuxddyen"
+                  data-downsell="https://www.tindercheck.site/emergency2"
                   className="fornpay_btn"
                   style={{
                     background: "#3d94f6",
@@ -156,7 +156,7 @@ export default function EmergencyDownsellPage() {
                 </button>
                 <button
                   onClick={handleDeclineOffer}
-                  data-downsell="https://www.tindercheck.online/emergency2"
+                  data-downsell="https://www.tindercheck.site/emergency2"
                   className="fornpay_downsell"
                   style={{
                     color: "#004faa",
@@ -204,14 +204,14 @@ export default function EmergencyDownsellPage() {
                 <MessageCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
                 <div>
                   <h4 className="font-semibold text-gray-800">Conversations complètes</h4>
-                  <p className="text-sm text-gray-600">Ce qui se dit vraiment dans les messages</p>
+                  <p className="text-sm text-gray-600">Ce qui est vraiment dit dans les messages</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
                 <div>
                   <h4 className="font-semibold text-gray-800">Localisation exacte des rendez-vous</h4>
-                  <p className="text-sm text-gray-600">Où et quand les rencontres sont organisées</p>
+                  <p className="text-sm text-gray-600">Où et quand les rendez-vous sont organisés</p>
                 </div>
               </div>
             </div>
@@ -252,7 +252,7 @@ export default function EmergencyDownsellPage() {
               <button
                 onClick={handleDownsellButton}
                 data-fornpay="ta7acpjusv"
-                data-downsell="https://www.tindercheck.online/emergency2"
+                data-downsell="https://www.tindercheck.site/emergency2"
                 className="fornpay_btn"
                 style={{
                   background: "#3d94f6",
@@ -289,7 +289,7 @@ export default function EmergencyDownsellPage() {
               </button>
               <button
                 onClick={handleDeclineOffer}
-                data-downsell="https://www.tindercheck.online/emergency2"
+                data-downsell="https://www.tindercheck.site/emergency2"
                 className="fornpay_downsell"
                 style={{
                   color: "#004faa",
