@@ -12,7 +12,7 @@ export default function Emergency2Page() {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0))
     }, 1000)
 
-    // Set global variables for Kiwify
+    // Set global variables for Kiwify - CORRIGIDO: configurações da terceira página
     if (typeof window !== "undefined") {
       window.nextUpsellURL = ""
       window.nextDownsellURL = ""
@@ -37,63 +37,6 @@ export default function Emergency2Page() {
     const secs = seconds % 60
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
   }
-
-  // Kiwify Button Component
-  const KiwifyButton = () => (
-    <div style={{ textAlign: "center", width: "100%" }}>
-      <button
-        id="kiwify-upsell-trigger-4HB21NF"
-        style={{
-          backgroundColor: "#27AF60",
-          padding: "12px 16px",
-          cursor: "pointer",
-          color: "#FFFFFF",
-          fontWeight: "600",
-          borderRadius: "4px",
-          border: "1px solid #27AF60",
-          fontSize: "20px",
-          width: "100%",
-          maxWidth: "400px",
-          marginBottom: "1rem",
-          transition: "all 0.3s ease",
-          textTransform: "uppercase",
-        }}
-        onMouseOver={(e) => {
-          e.target.style.backgroundColor = "#229954"
-          e.target.style.transform = "translateY(-2px)"
-          e.target.style.boxShadow = "0 4px 12px rgba(39, 175, 96, 0.3)"
-        }}
-        onMouseOut={(e) => {
-          e.target.style.backgroundColor = "#27AF60"
-          e.target.style.transform = "translateY(0)"
-          e.target.style.boxShadow = "none"
-        }}
-      >
-        OUI, JE VEUX VOIR LES MESSAGES SUPPRIMÉS ET CACHÉS
-      </button>
-      <div
-        id="kiwify-upsell-cancel-trigger"
-        style={{
-          marginTop: "1rem",
-          cursor: "pointer",
-          fontSize: "16px",
-          textDecoration: "underline",
-          fontFamily: "sans-serif",
-          color: "#004faa",
-          transition: "color 0.3s ease",
-          lineHeight: "1.4",
-        }}
-        onMouseOver={(e) => {
-          e.target.style.color = "#374151"
-        }}
-        onMouseOut={(e) => {
-          e.target.style.color = "#004faa"
-        }}
-      >
-        Non, je me fiche que mon partenaire ait déjà supprimé des messages, audios ou même des photos pour me les cacher.
-      </div>
-    </div>
-  )
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50">
@@ -218,10 +161,39 @@ export default function Emergency2Page() {
               </p>
             </div>
 
-            {/* Kiwify Button Section */}
-            <div className="text-center">
-              <div style={{ width: "auto", maxWidth: "400px", margin: "0 auto" }}>
-                <KiwifyButton />
+            {/* CORRIGIDO: Kiwify Button Section - usando configurações da terceira página */}
+            <div style={{ textAlign: "center" }}>
+              <button 
+                id="kiwify-upsell-trigger-4HB21NF" 
+                style={{
+                  backgroundColor: "#27AF60",
+                  padding: "12px 16px",
+                  cursor: "pointer",
+                  color: "#FFFFFF",
+                  fontWeight: "600",
+                  borderRadius: "4px",
+                  border: "1px solid #27AF60",
+                  fontSize: "20px",
+                  width: "100%",
+                  maxWidth: "400px",
+                  marginBottom: "1rem"
+                }}
+              >
+                OUI, JE VEUX VOIR LES MESSAGES SUPPRIMÉS ET CACHÉS
+              </button>
+              
+              <div 
+                id="kiwify-upsell-cancel-trigger" 
+                style={{
+                  marginTop: "1rem",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  textDecoration: "underline",
+                  fontFamily: "sans-serif",
+                  color: "#004faa"
+                }}
+              >
+                Non, je me fiche que mon partenaire ait déjà supprimé des messages, audios ou même des photos pour me les cacher.
               </div>
             </div>
           </motion.div>

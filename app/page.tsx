@@ -1513,18 +1513,40 @@ export default function SigiloX() {
 
                     <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                       <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-green-50 rounded-xl">
-                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
-                        <span className="text-xs sm:text-sm text-gray-700 font-medium">Photos de profil analysées</span>
+                        <CheckCircle
+                          className={`w-4 h-4 sm:w-5 sm:h-5 ${generatingProgress >= 20 ? "text-green-500" : "text-gray-300"}`}
+                        />
+                        <span
+                          className={`text-xs sm:text-sm font-medium ${generatingProgress >= 20 ? "text-gray-700" : "text-gray-500"}`}
+                        >
+                          Photos de profil analysées
+                        </span>
                       </div>
                       <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-blue-50 rounded-xl">
-                        <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                        <span className="text-xs sm:text-sm text-gray-700 font-medium">
+                        {generatingProgress >= 60 ? (
+                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
+                        ) : (
+                          <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                        )}
+                        <span
+                          className={`text-xs sm:text-sm font-medium ${generatingProgress >= 60 ? "text-gray-700" : "text-gray-700"}`}
+                        >
                           Traitement des conversations...
                         </span>
                       </div>
                       <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
-                        <div className="w-4 h-4 sm:w-5 sm:h-5 bg-gray-300 rounded-full" />
-                        <span className="text-xs sm:text-sm text-gray-500">Finalisation du rapport...</span>
+                        {generatingProgress >= 100 ? (
+                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
+                        ) : (
+                          <div
+                            className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full ${generatingProgress >= 80 ? "border-2 border-gray-500 border-t-transparent animate-spin" : "bg-gray-300"}`}
+                          />
+                        )}
+                        <span
+                          className={`text-xs sm:text-sm font-medium ${generatingProgress >= 100 ? "text-gray-700" : "text-gray-500"}`}
+                        >
+                          Finalisation du rapport...
+                        </span>
                       </div>
                     </div>
 

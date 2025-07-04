@@ -5,6 +5,14 @@ import { motion } from "framer-motion"
 import { MapPin, Camera, MessageCircle } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
+// ---- kiwify-globals.ts ----
+declare global {
+  interface Window {
+    nextUpsellURL?: string
+    nextDownsellURL?: string
+  }
+}
+
 export default function EmergencyDownsellPage() {
   const [currentDateTime, setCurrentDateTime] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -43,25 +51,32 @@ export default function EmergencyDownsellPage() {
     return () => clearInterval(timer)
   }, [])
 
-  // Load Kiwify script
+  // ---- Kiwify One-Click loader ----
   useEffect(() => {
-    // Set global variables for Kiwify
+    // define the URLs BEFORE the script executes
     if (typeof window !== "undefined") {
       window.nextUpsellURL = "https://tindercheck.site/emergency2"
       window.nextDownsellURL = "https://tindercheck.site/emergency2"
     }
 
-    // Load Kiwify upsell script
-    const script = document.createElement('script')
-    script.src = 'https://snippets.kiwify.com/upsell/upsell.min.js'
-    script.async = true
-    document.head.appendChild(script)
+    // safely inject script only once
+    const { document } = window
+    const existed = document.querySelector<HTMLScriptElement>("script[data-kiwify='upsell']")
+    if (existed) return // already on the page
+
+    const s = document.createElement("script")
+    s.src = "https://snippets.kiwify.com/upsell/upsell.min.js"
+    s.async = true
+    s.dataset.kiwify = "upsell"
+    s.crossOrigin = "anonymous"
+    s.onerror = () => {
+      // in the preview sandbox the script is blocked; swallow the error
+      console.warn("Kiwify script failed to load (sandboxed preview)")
+    }
+    document.head.appendChild(s)
 
     return () => {
-      // Cleanup
-      if (document.head.contains(script)) {
-        document.head.removeChild(script)
-      }
+      document.head.removeChild(s)
     }
   }, [])
 
@@ -71,61 +86,6 @@ export default function EmergencyDownsellPage() {
     const secs = seconds % 60
     return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
   }
-
-  // Kiwify Button Component
-  const KiwifyButton = () => (
-    <div style={{ textAlign: "center", width: "100%" }}>
-      <button
-        id="kiwify-upsell-trigger-tgJtMrc"
-        style={{
-          backgroundColor: "#27AF60",
-          padding: "12px 16px",
-          cursor: "pointer",
-          color: "#FFFFFF",
-          fontWeight: "600",
-          borderRadius: "4px",
-          border: "1px solid #27AF60",
-          fontSize: "20px",
-          width: "100%",
-          maxWidth: "400px",
-          marginBottom: "1rem",
-          transition: "all 0.3s ease",
-        }}
-        onMouseOver={(e) => {
-          e.target.style.backgroundColor = "#229954"
-          e.target.style.transform = "translateY(-2px)"
-          e.target.style.boxShadow = "0 4px 12px rgba(39, 175, 96, 0.3)"
-        }}
-        onMouseOut={(e) => {
-          e.target.style.backgroundColor = "#27AF60"
-          e.target.style.transform = "translateY(0)"
-          e.target.style.boxShadow = "none"
-        }}
-      >
-        ✅ JE VEUX ACCÉDER AU CONTENU SUSPECT MAINTENANT
-      </button>
-      <div
-        id="kiwify-upsell-cancel-trigger"
-        style={{
-          marginTop: "1rem",
-          cursor: "pointer",
-          fontSize: "16px",
-          textDecoration: "underline",
-          fontFamily: "sans-serif",
-          color: "#004faa",
-          transition: "color 0.3s ease",
-        }}
-        onMouseOver={(e) => {
-          e.target.style.color = "#374151"
-        }}
-        onMouseOut={(e) => {
-          e.target.style.color = "#004faa"
-        }}
-      >
-        Je ne veux pas accéder au contenu suspect maintenant
-      </div>
-    </div>
-  )
 
   return (
     <div
@@ -162,8 +122,23 @@ export default function EmergencyDownsellPage() {
               <div className="text-4xl font-bold text-orange-600 mb-4">€27</div>
               <div className="text-sm text-gray-600 mb-4">42% de réduction - Aujourd'hui seulement</div>
 
-              {/* Kiwify Button */}
-              <KiwifyButton />
+              {/* FIXED: Kiwify OneClick Buttons using same pattern as working page */}
+              <div className="text-center">
+                <button
+                  data-kiwify="true"
+                  id="kiwify-upsell-trigger-tgJtMrc"
+                  className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded border border-green-700 cursor-pointer text-lg mb-4 w-full transition-colors"
+                >
+                  ✅ JE VEUX ACCÉDER AU CONTENU SUSPECT MAINTENANT
+                </button>
+
+                <div
+                  id="kiwify-upsell-cancel-trigger"
+                  className="mt-4 cursor-pointer text-base underline text-blue-600 hover:text-blue-800 transition-colors"
+                >
+                  Je ne veux pas accéder au contenu suspect maintenant
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -227,8 +202,23 @@ export default function EmergencyDownsellPage() {
               toutes les informations.
             </p>
 
-            {/* Kiwify Button */}
-            <KiwifyButton />
+            {/* FIXED: Final CTA using same pattern as working page */}
+            <div className="text-center">
+              <button
+                data-kiwify="true"
+                id="kiwify-upsell-trigger-tgJtMrc"
+                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded border border-green-700 cursor-pointer text-lg mb-4 w-full max-w-md transition-colors"
+              >
+                ✅ JE VEUX ACCÉDER AU CONTENU SUSPECT MAINTENANT
+              </button>
+
+              <div
+                id="kiwify-upsell-cancel-trigger"
+                className="mt-4 cursor-pointer text-base underline text-blue-600 hover:text-blue-800 transition-colors"
+              >
+                Je ne veux pas accéder au contenu suspect maintenant
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
