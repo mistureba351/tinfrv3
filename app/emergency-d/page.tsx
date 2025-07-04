@@ -51,32 +51,21 @@ export default function EmergencyDownsellPage() {
     return () => clearInterval(timer)
   }, [])
 
-  // ---- Kiwify One-Click loader ----
+  // Load Kiwify script - FIXED: usando o mesmo padrão da página que funciona
   useEffect(() => {
-    // define the URLs BEFORE the script executes
-    if (typeof window !== "undefined") {
-      window.nextUpsellURL = "https://tindercheck.site/emergency2"
-      window.nextDownsellURL = "https://tindercheck.site/emergency2"
-    }
-
-    // safely inject script only once
-    const { document } = window
-    const existed = document.querySelector<HTMLScriptElement>("script[data-kiwify='upsell']")
-    if (existed) return // already on the page
-
-    const s = document.createElement("script")
-    s.src = "https://snippets.kiwify.com/upsell/upsell.min.js"
-    s.async = true
-    s.dataset.kiwify = "upsell"
-    s.crossOrigin = "anonymous"
-    s.onerror = () => {
-      // in the preview sandbox the script is blocked; swallow the error
-      console.warn("Kiwify script failed to load (sandboxed preview)")
-    }
-    document.head.appendChild(s)
+    // Set global variables for Kiwify
+    window.nextUpsellURL = "https://tindercheck.site/emergency2"
+    window.nextDownsellURL = "https://tindercheck.site/emergency2"
+    
+    // Load Kiwify script
+    const script = document.createElement('script')
+    script.src = 'https://snippets.kiwify.com/upsell/upsell.min.js'
+    script.async = true
+    document.head.appendChild(script)
 
     return () => {
-      document.head.removeChild(s)
+      // Cleanup script if component unmounts
+      document.head.removeChild(script)
     }
   }, [])
 
@@ -122,18 +111,17 @@ export default function EmergencyDownsellPage() {
               <div className="text-4xl font-bold text-orange-600 mb-4">€27</div>
               <div className="text-sm text-gray-600 mb-4">42% de réduction - Aujourd'hui seulement</div>
 
-              {/* FIXED: Kiwify OneClick Buttons using same pattern as working page */}
+              {/* FIXED: Kiwify OneClick Buttons usando exatamente o mesmo padrão da página que funciona */}
               <div className="text-center">
-                <button
-                  data-kiwify="true"
-                  id="kiwify-upsell-trigger-tgJtMrc"
+                <button 
+                  id="kiwify-upsell-trigger-tgJtMrc" 
                   className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded border border-green-700 cursor-pointer text-lg mb-4 w-full transition-colors"
                 >
                   ✅ JE VEUX ACCÉDER AU CONTENU SUSPECT MAINTENANT
                 </button>
-
-                <div
-                  id="kiwify-upsell-cancel-trigger"
+                
+                <div 
+                  id="kiwify-upsell-cancel-trigger" 
                   className="mt-4 cursor-pointer text-base underline text-blue-600 hover:text-blue-800 transition-colors"
                 >
                   Je ne veux pas accéder au contenu suspect maintenant
@@ -202,18 +190,17 @@ export default function EmergencyDownsellPage() {
               toutes les informations.
             </p>
 
-            {/* FIXED: Final CTA using same pattern as working page */}
+            {/* FIXED: Final CTA usando o mesmo padrão da página que funciona */}
             <div className="text-center">
-              <button
-                data-kiwify="true"
-                id="kiwify-upsell-trigger-tgJtMrc"
+              <button 
+                id="kiwify-upsell-trigger-tgJtMrc" 
                 className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded border border-green-700 cursor-pointer text-lg mb-4 w-full max-w-md transition-colors"
               >
                 ✅ JE VEUX ACCÉDER AU CONTENU SUSPECT MAINTENANT
               </button>
-
-              <div
-                id="kiwify-upsell-cancel-trigger"
+              
+              <div 
+                id="kiwify-upsell-cancel-trigger" 
                 className="mt-4 cursor-pointer text-base underline text-blue-600 hover:text-blue-800 transition-colors"
               >
                 Je ne veux pas accéder au contenu suspect maintenant
