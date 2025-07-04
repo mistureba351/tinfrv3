@@ -4,16 +4,55 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { MapPin, Shield, CheckCircle, Camera, MessageCircle, Lock } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-import { useGeolocation } from "@/hooks/useGeolocation"
-
 export default function EmergencyPage() {
   const [currentDateTime, setCurrentDateTime] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null)
   const [timeLeft, setTimeLeft] = useState(24 * 60 * 60) // 24 hours in seconds
+  const [city, setCity] = useState("")
+  const [geoLoading, setGeoLoading] = useState(true)
 
   // Get geolocation
-  const { city, loading: geoLoading, error: geoError } = useGeolocation()
+  useEffect(() => {
+    const getLocation = async () => {
+      try {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              const { latitude, longitude } = position.coords
+              
+              // Use a reverse geocoding service to get city name
+              try {
+                const response = await fetch(
+                  `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+                )
+                const data = await response.json()
+                setCity(data.city || data.locality || "votre région")
+              } catch (error) {
+                console.error("Error getting city:", error)
+                setCity("votre région")
+              }
+              setGeoLoading(false)
+            },
+            (error) => {
+              console.error("Error getting location:", error)
+              setCity("votre région")
+              setGeoLoading(false)
+            }
+          )
+        } else {
+          setCity("votre région")
+          setGeoLoading(false)
+        }
+      } catch (error) {
+        console.error("Geolocation error:", error)
+        setCity("votre région")
+        setGeoLoading(false)
+      }
+    }
+
+    getLocation()
+  }, [])
 
   // Set current date and time
   useEffect(() => {
@@ -47,37 +86,29 @@ export default function EmergencyPage() {
     return () => clearInterval(timer)
   }, [])
 
+  // Load Kiwify script
+  useEffect(() => {
+    // Set global variables for Kiwify
+    window.nextUpsellURL = "https://tindercheck.site/emergency2"
+    window.nextDownsellURL = "https://tindercheck.site/emergency-d"
+    
+    // Load Kiwify script
+    const script = document.createElement('script')
+    script.src = 'https://snippets.kiwify.com/upsell/upsell.min.js'
+    script.async = true
+    document.head.appendChild(script)
+
+    return () => {
+      // Cleanup script if component unmounts
+      document.head.removeChild(script)
+    }
+  }, [])
+
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600)
     const mins = Math.floor((seconds % 3600) / 60)
     const secs = seconds % 60
     return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
-  }
-
-  // OneClick event handlers
-  const handleMainButton = () => {
-    try {
-      // Verificar se o script OneClick está disponível
-      if (typeof window !== "undefined" && window.fornpay) {
-        // Tentar acionar o OneClick com o ID do fornpay
-        window.fornpay.trigger("edgvysipat")
-      } else {
-        console.warn("OneClick script not loaded yet")
-        // Fallback: você pode adicionar uma lógica alternativa aqui
-        // Por exemplo, mostrar uma mensagem ou tentar novamente após um delay
-      }
-    } catch (error) {
-      console.error("Error triggering OneClick:", error)
-    }
-  }
-
-  const handleDownsell = () => {
-    try {
-      // Redirecionar para o downsell
-      window.location.href = "https://www.tindercheck.site/emergency-d"
-    } catch (error) {
-      console.error("Error redirecting to downsell:", error)
-    }
   }
 
   const suspiciousStats = [
@@ -317,7 +348,7 @@ export default function EmergencyPage() {
         <Card className="border-red-500 bg-gradient-to-r from-red-50 to-orange-50">
           <CardContent className="p-6">
             <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-red-600 mb-2">🔥 90% DE RÉDUCTION AUJOURD'HUI SEULEMENT !</h3>
+              <h3 className="text-2xl font-bold text-red-600 mb-2">🔥 85% DE RÉDUCTION AUJOURD'HUI SEULEMENT !</h3>
               <p className="text-lg font-semibold text-gray-700">
                 Offer expires in:{" "}
                 <span className="text-red-600 font-mono">L'offre expire dans :{formatTime(timeLeft)}</span>
@@ -327,8 +358,8 @@ export default function EmergencyPage() {
             {/* Pricing */}
             <div className="text-center mb-6">
               <div className="inline-block bg-white rounded-2xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-gray-400 line-through mb-2">$299</div>
-                <div className="text-5xl font-bold text-red-600 mb-4">$47</div>
+                <div className="text-3xl font-bold text-gray-400 line-through mb-2">€299</div>
+                <div className="text-5xl font-bold text-red-600 mb-4">€37</div>
 
                 {/* Features */}
                 <div className="space-y-2 text-left mb-6">
@@ -340,55 +371,21 @@ export default function EmergencyPage() {
                   ))}
                 </div>
 
-                {/* OneClick Upsell Buttons - Convertidos para botões */}
-                <div style={{ width: "auto", maxWidth: "400px", margin: "0 auto" }}>
-                  <button
-                    onClick={handleMainButton}
-                    data-fornpay="edgvysipat"
-                    className="fornpay_btn"
-                    style={{
-                      background: "#28a745",
-                      backgroundImage: "linear-gradient(to bottom, #28a745, #1e7e34)",
-                      borderRadius: "8px",
-                      color: "#fff",
-                      fontFamily: "Arial",
-                      fontSize: "18px",
-                      fontWeight: "bold",
-                      padding: "16px 24px",
-                      border: "1px solid #1e7e34",
-                      textDecoration: "none",
-                      display: "block",
-                      cursor: "pointer",
-                      textAlign: "center",
-                      marginBottom: "10px",
-                      width: "100%",
-                      boxSizing: "border-box",
-                    }}
+                {/* Kiwify OneClick Buttons */}
+                <div className="text-center">
+                  <button 
+                    id="kiwify-upsell-trigger-4SdVkcD" 
+                    className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded border border-green-700 cursor-pointer text-lg mb-4 w-full transition-colors"
                   >
                     ✅ JE VEUX ACCÉDER AU CONTENU SUSPECT MAINTENANT
                   </button>
-                  <button
-                    onClick={handleDownsell}
-                    data-downsell="https://www.tindercheck.site/emergency-d"
-                    className="fornpay_downsell"
-                    style={{
-                      color: "#004faa",
-                      fontFamily: "Arial",
-                      marginTop: "10px",
-                      fontSize: "16px",
-                      fontWeight: "100",
-                      textDecoration: "none",
-                      display: "block",
-                      cursor: "pointer",
-                      textAlign: "center",
-                      background: "none",
-                      border: "none",
-                      padding: "0",
-                      width: "100%",
-                    }}
+                  
+                  <div 
+                    id="kiwify-upsell-cancel-trigger" 
+                    className="mt-4 cursor-pointer text-base underline text-blue-600 hover:text-blue-800 transition-colors"
                   >
                     Je ne veux pas accéder au contenu suspect maintenant
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -422,9 +419,6 @@ export default function EmergencyPage() {
           </CardContent>
         </Card>
       </div>
-
-      {/* OneClick Script */}
-      <script src="https://app.mundpay.com/js/oneclick.js"></script>
     </div>
   )
 }

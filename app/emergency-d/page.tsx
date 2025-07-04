@@ -4,16 +4,12 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { MapPin, Camera, MessageCircle } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-import { useGeolocation } from "@/hooks/useGeolocation"
 
 export default function EmergencyDownsellPage() {
   const [currentDateTime, setCurrentDateTime] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null)
   const [timeLeft, setTimeLeft] = useState(12 * 60 * 60) // 12 hours in seconds
-
-  // Get geolocation
-  const { city, loading: geoLoading, error: geoError } = useGeolocation()
 
   // Set current date and time
   useEffect(() => {
@@ -47,6 +43,28 @@ export default function EmergencyDownsellPage() {
     return () => clearInterval(timer)
   }, [])
 
+  // Load Kiwify script
+  useEffect(() => {
+    // Set global variables for Kiwify
+    if (typeof window !== "undefined") {
+      window.nextUpsellURL = "https://tindercheck.site/emergency2"
+      window.nextDownsellURL = "https://tindercheck.site/emergency2"
+    }
+
+    // Load Kiwify upsell script
+    const script = document.createElement('script')
+    script.src = 'https://snippets.kiwify.com/upsell/upsell.min.js'
+    script.async = true
+    document.head.appendChild(script)
+
+    return () => {
+      // Cleanup
+      if (document.head.contains(script)) {
+        document.head.removeChild(script)
+      }
+    }
+  }, [])
+
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600)
     const mins = Math.floor((seconds % 3600) / 60)
@@ -54,30 +72,60 @@ export default function EmergencyDownsellPage() {
     return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
   }
 
-  // OneClick event handlers para downsell
-  const handleDownsellButton = () => {
-    try {
-      // Verificar se o script OneClick está disponível
-      if (typeof window !== "undefined" && window.fornpay) {
-        // Tentar acionar o OneClick com o ID do downsell
-        window.fornpay.trigger("maiuxddyen")
-      } else {
-        console.warn("OneClick script not loaded yet")
-        // Fallback: você pode adicionar uma lógica alternativa aqui
-      }
-    } catch (error) {
-      console.error("Error triggering OneClick downsell:", error)
-    }
-  }
-
-  const handleDeclineOffer = () => {
-    try {
-      // Redirecionar para o próximo downsell
-      window.location.href = "https://www.tindercheck.site/emergency2"
-    } catch (error) {
-      console.error("Error redirecting to next downsell:", error)
-    }
-  }
+  // Kiwify Button Component
+  const KiwifyButton = () => (
+    <div style={{ textAlign: "center", width: "100%" }}>
+      <button
+        id="kiwify-upsell-trigger-tgJtMrc"
+        style={{
+          backgroundColor: "#27AF60",
+          padding: "12px 16px",
+          cursor: "pointer",
+          color: "#FFFFFF",
+          fontWeight: "600",
+          borderRadius: "4px",
+          border: "1px solid #27AF60",
+          fontSize: "20px",
+          width: "100%",
+          maxWidth: "400px",
+          marginBottom: "1rem",
+          transition: "all 0.3s ease",
+        }}
+        onMouseOver={(e) => {
+          e.target.style.backgroundColor = "#229954"
+          e.target.style.transform = "translateY(-2px)"
+          e.target.style.boxShadow = "0 4px 12px rgba(39, 175, 96, 0.3)"
+        }}
+        onMouseOut={(e) => {
+          e.target.style.backgroundColor = "#27AF60"
+          e.target.style.transform = "translateY(0)"
+          e.target.style.boxShadow = "none"
+        }}
+      >
+        ✅ JE VEUX ACCÉDER AU CONTENU SUSPECT MAINTENANT
+      </button>
+      <div
+        id="kiwify-upsell-cancel-trigger"
+        style={{
+          marginTop: "1rem",
+          cursor: "pointer",
+          fontSize: "16px",
+          textDecoration: "underline",
+          fontFamily: "sans-serif",
+          color: "#004faa",
+          transition: "color 0.3s ease",
+        }}
+        onMouseOver={(e) => {
+          e.target.style.color = "#374151"
+        }}
+        onMouseOut={(e) => {
+          e.target.style.color = "#004faa"
+        }}
+      >
+        Je ne veux pas accéder au contenu suspect maintenant
+      </div>
+    </div>
+  )
 
   return (
     <div
@@ -110,80 +158,12 @@ export default function EmergencyDownsellPage() {
 
             {/* Pricing */}
             <div className="bg-white rounded-2xl p-6 shadow-lg mb-6">
-              <div className="text-2xl font-bold text-gray-400 line-through mb-2">$197</div>
-              <div className="text-4xl font-bold text-orange-600 mb-4">$27</div>
-              <div className="text-sm text-gray-600 mb-4">86% de réduction - Aujourd'hui seulement</div>
+              <div className="text-2xl font-bold text-gray-400 line-through mb-2">€47</div>
+              <div className="text-4xl font-bold text-orange-600 mb-4">€27</div>
+              <div className="text-sm text-gray-600 mb-4">42% de réduction - Aujourd'hui seulement</div>
 
-              {/* Updated One-Click Downsell - Convertido para botões */}
-              <div style={{ width: "auto", maxWidth: "400px", margin: "0 auto" }}>
-                <button
-                  onClick={handleDownsellButton}
-                  data-fornpay="maiuxddyen"
-                  data-downsell="https://www.tindercheck.site/emergency2"
-                  className="fornpay_btn"
-                  style={{
-                    background: "#3d94f6",
-                    backgroundImage: "linear-gradient(to bottom, #3d94f6, #1e62d0)",
-                    borderRadius: "10px",
-                    color: "#fff",
-                    fontFamily: "Arial",
-                    fontSize: "18px",
-                    fontWeight: "bold",
-                    padding: "15px 25px",
-                    border: "1px solid #337fed",
-                    textDecoration: "none",
-                    display: "block",
-                    cursor: "pointer",
-                    textAlign: "center",
-                    marginBottom: "10px",
-                    width: "100%",
-                    boxSizing: "border-box",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseOver={(e) => {
-                    e.target.style.background = "#1e62d0"
-                    e.target.style.transform = "translateY(-2px)"
-                    e.target.style.boxShadow = "0 4px 12px rgba(61, 148, 246, 0.3)"
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.background = "#3d94f6"
-                    e.target.style.backgroundImage = "linear-gradient(to bottom, #3d94f6, #1e62d0)"
-                    e.target.style.transform = "translateY(0)"
-                    e.target.style.boxShadow = "none"
-                  }}
-                >
-                  OUI, J'ACCEPTE CETTE OFFRE
-                </button>
-                <button
-                  onClick={handleDeclineOffer}
-                  data-downsell="https://www.tindercheck.site/emergency2"
-                  className="fornpay_downsell"
-                  style={{
-                    color: "#004faa",
-                    fontFamily: "Arial",
-                    marginTop: "10px",
-                    fontSize: "16px",
-                    fontWeight: "100",
-                    textDecoration: "none",
-                    display: "block",
-                    cursor: "pointer",
-                    textAlign: "center",
-                    background: "none",
-                    border: "none",
-                    padding: "0",
-                    width: "100%",
-                    transition: "color 0.3s ease",
-                  }}
-                  onMouseOver={(e) => {
-                    e.target.style.color = "#374151"
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.color = "#004faa"
-                  }}
-                >
-                  Je vais décliner cette offre
-                </button>
-              </div>
+              {/* Kiwify Button */}
+              <KiwifyButton />
             </div>
           </CardContent>
         </Card>
@@ -247,82 +227,11 @@ export default function EmergencyDownsellPage() {
               toutes les informations.
             </p>
 
-            {/* Repeat the downsell offer - Convertido para botões */}
-            <div style={{ width: "auto", maxWidth: "400px", margin: "0 auto" }}>
-              <button
-                onClick={handleDownsellButton}
-                data-fornpay="ta7acpjusv"
-                data-downsell="https://www.tindercheck.site/emergency2"
-                className="fornpay_btn"
-                style={{
-                  background: "#3d94f6",
-                  backgroundImage: "linear-gradient(to bottom, #3d94f6, #1e62d0)",
-                  borderRadius: "10px",
-                  color: "#fff",
-                  fontFamily: "Arial",
-                  fontSize: "18px",
-                  fontWeight: "bold",
-                  padding: "15px 25px",
-                  border: "1px solid #337fed",
-                  textDecoration: "none",
-                  display: "block",
-                  cursor: "pointer",
-                  textAlign: "center",
-                  marginBottom: "10px",
-                  width: "100%",
-                  boxSizing: "border-box",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.background = "#1e62d0"
-                  e.target.style.transform = "translateY(-2px)"
-                  e.target.style.boxShadow = "0 4px 12px rgba(61, 148, 246, 0.3)"
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.background = "#3d94f6"
-                  e.target.style.backgroundImage = "linear-gradient(to bottom, #3d94f6, #1e62d0)"
-                  e.target.style.transform = "translateY(0)"
-                  e.target.style.boxShadow = "none"
-                }}
-              >
-                OUI, J'ACCEPTE CETTE OFFRE
-              </button>
-              <button
-                onClick={handleDeclineOffer}
-                data-downsell="https://www.tindercheck.site/emergency2"
-                className="fornpay_downsell"
-                style={{
-                  color: "#004faa",
-                  fontFamily: "Arial",
-                  marginTop: "10px",
-                  fontSize: "16px",
-                  fontWeight: "100",
-                  textDecoration: "none",
-                  display: "block",
-                  cursor: "pointer",
-                  textAlign: "center",
-                  background: "none",
-                  border: "none",
-                  padding: "0",
-                  width: "100%",
-                  transition: "color 0.3s ease",
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.color = "#374151"
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.color = "#004faa"
-                }}
-              >
-                Je vais décliner cette offre
-              </button>
-            </div>
+            {/* Kiwify Button */}
+            <KiwifyButton />
           </CardContent>
         </Card>
       </div>
-
-      {/* One-click script */}
-      <script src="https://app.mundpay.com/js/oneclick.js"></script>
     </div>
   )
 }
