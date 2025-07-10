@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerte d'Urgence</title>
+    
+    <!-- Inclui o Tailwind CSS via CDN para os estilos funcionarem -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Inclui a fonte Inter do Google Fonts para o design correto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Script da Monetizze para Upsell One Click -->
+    <script type="text/javascript" src="https://app.monetizze.com.br/upsell_incorporado.php"></script>
+
+    <style>
+        /* Define a fonte padrão e adiciona a animação de entrada */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .fade-in-scale {
+            animation: fadeInScale 0.5s ease-out forwards;
+        }
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+
+    <!-- Emergency Alert Header -->
+    <div class="bg-red-600 text-white text-center py-4 px-4">
+        <div class="max-w-4xl mx-auto fade-in-scale">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-2">🚨 ALERTE D'URGENCE !</h1>
+            <p class="text-lg sm:text-xl">Votre relation pourrait être en danger !</p>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 py-6 space-y-8">
+        <!-- Algorithm Detection -->
+        <div class="border border-orange-200 bg-orange-50 rounded-lg shadow-sm">
+            <div class="p-6 text-center">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+                    Notre algorithme, basé sur l'analyse de chiffres, de données, de mots et de photos, a détecté des messages et des fichiers suspects sur WhatsApp...
+                </h2>
+                <p class="text-lg font-semibold text-green-600">
+                    Rapport exporté avec une précision de 98% le :
+                    <span id="current-datetime" class="text-blue-600">--/--/---- --:--</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Profile Photo and Phone (será exibido via JS se houver dados na URL) -->
+        <div id="profile-card" class="border rounded-lg shadow-sm bg-white" style="display: none;">
+            <div class="p-6 text-center">
+                <img id="profile-photo" src="" alt="Profil" class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover mx-auto mb-4 border-4 border-green-500" style="display: none;">
+                <p id="phone-number" class="text-xl font-semibold text-green-600"></p>
+            </div>
+        </div>
+
+        <!-- Suspicious Content Summary -->
+        <div class="border border-red-200 bg-red-50 rounded-lg shadow-sm">
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">
+                    Nous avons trouvé <span class="text-red-600 font-bold">58</span> messages suspects :
+                </h3>
+                <div id="suspicious-stats-list" class="space-y-3">
+                    <!-- Le contenu sera généré par JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- WhatsApp Messages Detection -->
+        <div class="border border-blue-200 bg-blue-50 rounded-lg shadow-sm">
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Nous avons détecté des messages suspects sur WhatsApp.</h3>
+                    <p class="text-red-600 font-semibold">(Obtenez l'accès à l'application pour voir les messages.)</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 max-w-sm mx-auto border shadow-lg">
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
+                            <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-semibold text-sm">Contact Inconnu</span>
+                                    <span class="text-xs text-gray-500">15:08</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate" style="filter: blur(2px);">Salut ma belle...</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
+                            <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-semibold text-sm">Conversation Secrète</span>
+                                    <span class="text-xs text-gray-500">14:32</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate" style="filter: blur(2px);">J'ai hâte de te voir...</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
+                            <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-semibold text-sm">Masqué</span>
+                                    <span class="text-xs text-gray-500">13:45</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate" style="filter: blur(2px);">Supprime ce message...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nudity Detection -->
+        <div class="border border-purple-200 bg-purple-50 rounded-lg shadow-sm">
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Nous avons détecté des photos et des vidéos contenant de la nudité.</h3>
+                    <p class="text-red-600 font-semibold">(Obtenez l'accès à l'application pour voir les photos non censurées.)</p>
+                </div>
+                <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 max-w-md mx-auto">
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" alt="Censuré 1" class="w-full h-full object-cover rounded-lg" style="filter: blur(12px) brightness(0.7);">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg">
+                            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                    </div>
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Censuré 2" class="w-full h-full object-cover rounded-lg" style="filter: blur(12px) brightness(0.7);">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg">
+                            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                    </div>
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Censuré 3" class="w-full h-full object-cover rounded-lg" style="filter: blur(12px) brightness(0.7);">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg">
+                            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                    </div>
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Censuré 4" class="w-full h-full object-cover rounded-lg" style="filter: blur(12px) brightness(0.7);">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg">
+                            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                    </div>
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face" alt="Censuré 5" class="w-full h-full object-cover rounded-lg" style="filter: blur(12px) brightness(0.7);">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg">
+                            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                    </div>
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face" alt="Censuré 6" class="w-full h-full object-cover rounded-lg" style="filter: blur(12px) brightness(0.7);">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg">
+                            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Tracking -->
+        <div class="border border-green-200 bg-green-50 rounded-lg shadow-sm">
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Le téléphone que vous souhaitez suivre a été localisé ici récemment.</h3>
+                <div class="text-center mb-4">
+                    <div class="inline-flex items-center gap-2 bg-blue-100 px-4 py-2 rounded-full">
+                        <svg class="w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span id="location-text" class="font-semibold text-blue-800">Localisation en cours...</span>
+                    </div>
+                </div>
+                <div class="bg-blue-100 h-64 rounded-lg flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-200 to-green-200 opacity-50"></div>
+                    <div class="relative z-10 text-center">
+                        <div class="w-4 h-4 bg-red-500 rounded-full mx-auto mb-2 animate-pulse"></div>
+                        <p class="text-sm font-semibold text-gray-700">Localisation approximative</p>
+                        <p id="location-city-text" class="text-xs text-gray-600">Chargement de la localisation...</p>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-32 h-32 border-2 border-blue-500 rounded-full opacity-30"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Promotion -->
+        <div class="border border-gray-200 bg-white rounded-lg shadow-sm">
+            <div class="p-6 text-center">
+                <div class="mb-6">
+                    <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-12 h-12 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13.37a1 1 0 0 1-1.41-1.41l1.41-1.41a1 1 0 0 1 1.41 1.41L2 13.37zM6.03 21.3a1 1 0 0 1-1.41-1.41l1.41-1.41a1 1 0 0 1 1.41 1.41l-1.41 1.41zM21.3 6.03a1 1 0 0 1-1.41-1.41l1.41-1.41a1 1 0 0 1 1.41 1.41l-1.41 1.41z"></path><path d="M19.07 19.07a1 1 0 0 1-1.41-1.41l1.41-1.41a1 1 0 0 1 1.41 1.41l-1.41 1.41zM2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0"></path><path d="M12 2a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zM4.93 4.93a1 1 0 0 1 1.41 0l1.41 1.41a1 1 0 0 1-1.41 1.41L4.93 6.34a1 1 0 0 1 0-1.41zM16.24 16.24a1 1 0 0 1 1.41 0l1.41 1.41a1 1 0 0 1-1.41 1.41l-1.41-1.41a1 1 0 0 1 0-1.41zM4.22 18.36a1 1 0 0 1 1.41-1.41l1.41 1.41a1 1 0 0 1-1.41 1.41l-1.41-1.41z"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Vous êtes arrivé à la fin de votre consultation gratuite.</h3>
+                </div>
+                <div class="space-y-4 text-left max-w-2xl mx-auto text-gray-700">
+                    <p>Je sais que vous en avez assez de deviner et que vous voulez de vraies réponses.</p>
+                    <p>Notre système de suivi par satellite est la technologie la plus avancée pour découvrir ce qui se passe. Mais il y a un hic : maintenir les satellites et les serveurs en service 24h/24 et 7j/7 coûte cher.</p>
+                    <p>C'est pourquoi, malheureusement, nous ne pouvons pas fournir plus de 5% des informations que nous découvrons gratuitement.</p>
+                    <p>La bonne nouvelle ? Vous n'avez pas besoin de dépenser une fortune pour engager un détective privé.</p>
+                    <p>Nous avons développé une application qui met cette même technologie entre vos mains et vous permet de tout suivre discrètement et efficacement par vous-même.</p>
+                    <p class="font-semibold text-red-600">Il est temps d'arrêter de deviner et de découvrir la vérité. Les réponses vous attendent. Cliquez maintenant et obtenez un accès instantané – avant qu'il ne soit trop tard !</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Time-Sensitive Offer -->
+        <div class="border border-red-500 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg shadow-sm">
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-red-600 mb-2">🔥 52% DE RÉDUCTION AUJOURD'HUI SEULEMENT !</h3>
+                    <p class="text-lg font-semibold text-gray-700">
+                        L'offre expire dans :
+                        <span id="countdown-timer" class="text-red-600 font-mono">24:00:00</span>
+                    </p>
+                </div>
+                <div class="text-center mb-6">
+                    <div class="inline-block bg-white rounded-2xl p-6 shadow-lg">
+                        <div class="text-3xl font-bold text-gray-400 line-through mb-2">$97</div>
+                        <div class="text-5xl font-bold text-red-600 mb-4">$47</div>
+                        <div class="space-y-2 text-left mb-6">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <span class="text-sm">Garantie 30 jours</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <span class="text-sm">Accès 1 an</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <span class="text-sm">Suivi jusqu'à 3 numéros</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <iframe 
+                                class="iframeUpsell" 
+                                data-chave="a556452639d226fa7c43a648e6980505"
+                                style="border:none; width:100%; min-height: 220px;"
+                                title="Offre Upsell Monetizze">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guarantee -->
+        <div class="border border-green-200 bg-green-50 rounded-lg shadow-sm">
+            <div class="p-6 text-center">
+                <div class="w-20 h-20 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-green-700 mb-4">Garantie de Remboursement de 30 Jours</h3>
+                <div class="text-gray-700 space-y-3 max-w-2xl mx-auto">
+                    <p>Conformément à la loi, nous sommes tenus de vous rembourser si vous n'êtes pas satisfait de l'application dans les 14 jours. Cependant, parce que nous sommes si confiants que notre application fonctionne parfaitement, nous avons étendu cette garantie à 30 jours.</p>
+                    <p>Cela signifie que vous avez deux fois plus de temps pour tester l'application et voir les résultats par vous-même – sans aucun risque. Si pour une raison quelconque vous n'êtes pas satisfait, nous vous rembourserons – sans poser de questions.</p>
+                    <p class="font-semibold">Si vous avez des questions concernant les remboursements, veuillez contacter le Service Client.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript para toda a funcionalidade dinâmica da página -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const pad = (num) => String(num).padStart(2, '0');
+            const now = new Date();
+            document.getElementById('current-datetime').textContent = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const tel = urlParams.get("tel");
+            const photo = urlParams.get("photo");
+            const profileCard = document.getElementById('profile-card');
+            const phoneNumberEl = document.getElementById('phone-number');
+            const profilePhotoEl = document.getElementById('profile-photo');
+            
+            phoneNumberEl.textContent = tel || "Recherche WhatsApp";
+            
+            if (photo) {
+                profilePhotoEl.src = photo;
+                profilePhotoEl.style.display = 'block';
+            }
+            if(tel || photo){
+                profileCard.style.display = 'block';
+            }
+
+            let timeLeft = 24 * 60 * 60;
+            const countdownTimerEl = document.getElementById('countdown-timer');
+            const updateTimer = () => {
+                if (timeLeft <= 0) { clearInterval(timerInterval); countdownTimerEl.textContent = "00:00:00"; return; }
+                const h = pad(Math.floor(timeLeft / 3600));
+                const m = pad(Math.floor((timeLeft % 3600) / 60));
+                const s = pad(timeLeft % 60);
+                countdownTimerEl.textContent = `${h}:${m}:${s}`;
+                timeLeft--;
+            };
+            const timerInterval = setInterval(updateTimer, 1000);
+            updateTimer();
+
+            const renderStats = (cityName) => {
+                const finalCity = cityName || "votre secteur";
+                const stats = [
+                    { count: 58, description: "messages suspects" },
+                    { count: 13, keyword: "délicieux", description: "messages contenant le mot ou un terme similaire" },
+                    { count: 41, keyword: "Amour", description: "messages contenant le mot ou un terme similaire" },
+                    { count: 20, description: "photos et 5 vidéos sont masquées par un mot de passe sur le téléphone" },
+                    { count: 8, keyword: "Secret", description: "messages contenant le mot ou un terme similaire" },
+                    { count: 2, description: "conversations archivées ont été marquées comme suspectes" },
+                    { count: 9, description: "images éphémères récemment reçues ont également été identifiées et restaurées" },
+                    { count: 7, description: `localisations suspectes ont été détectées près de ${finalCity}` },
+                ];
+                
+                const statsContainer = document.getElementById('suspicious-stats-list');
+                statsContainer.innerHTML = '';
+                stats.forEach(stat => {
+                    let textHtml = `<span class="text-red-600 font-bold">${stat.count}</span> ${stat.description}`;
+                    if (stat.keyword) {
+                        textHtml += ` <span class="text-red-600 font-bold">"${stat.keyword}"</span>`;
+                    }
+                    textHtml += '.';
+
+                    const statDiv = document.createElement('div');
+                    statDiv.className = 'flex items-start gap-3';
+                    statDiv.innerHTML = `<svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span class="text-sm sm:text-base">${textHtml}</span>`;
+                    statsContainer.appendChild(statDiv);
+                });
+            };
+
+            const setCityAndRender = (cityName) => {
+                const finalCity = cityName || "votre secteur";
+                document.getElementById('location-text').textContent = `Dernière localisation à ${finalCity}`;
+                document.getElementById('location-city-text').textContent = finalCity;
+                renderStats(finalCity);
+            };
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const { latitude, longitude } = position.coords;
+                        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=fr`)
+                            .then(response => response.json())
+                            .then(data => { setCityAndRender(data.city || data.locality); })
+                            .catch(error => { console.error("Erreur lors de l'obtention de la ville:", error); setCityAndRender(null); });
+                    },
+                    (error) => { console.error("Erreur de géolocalisation:", error); setCityAndRender(null); }
+                );
+            } else {
+                setCityAndRender(null);
+            }
+        });
+    </script>
+</body>
+</html>

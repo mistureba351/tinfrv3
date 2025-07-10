@@ -1737,7 +1737,7 @@ export default function SigiloX() {
                 <div className="space-y-4 sm:space-y-6">
                   <Button
                     onClick={() => {
-                      window.open("https://pay.kiwify.com/Nescuu7", "_blank")
+                      window.open("https://app.monetizze.com.br/checkout/KXQ435323", "_blank")
                     }}
                     className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 leading-tight"
                   >
