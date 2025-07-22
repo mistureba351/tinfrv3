@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offre Exclusive - Temps Limité</title>
+    <title>ATTENDEZ ! Votre réduction spéciale</title>
 
+    <!-- Includes Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Includes the Inter font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     
+    <!-- ======================================================= -->
+    <!--     CÓDIGO MUNDPAY ADICIONADO AQUI                      -->
+    <!-- ======================================================= -->
     <style>
       .mndpay_container {
           display: flex;
@@ -22,7 +27,7 @@
       }
 
       .mndpay_btn {
-        background: #052e05;
+        background: #032203;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         border-radius: 10px;
@@ -59,7 +64,7 @@
         }
       }
     </style>
-
+    
     <style>
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -77,12 +82,12 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-red-50 to-orange-50">
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
     
     <div class="fixed top-0 left-0 right-0 z-50 bg-red-600 text-white py-3 px-4 text-center font-bold text-sm md:text-base shadow-lg">
         <div class="flex items-center justify-center gap-2">
             <svg class="w-5 h-5 animate-pulse" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" x2="12" y1="9" y2="13"></line><line x1="12" x2="12.01" y1="17" y2="17"></line></svg>
-            🚨 NE FERMEZ PAS ET N'ACTUALISEZ PAS CETTE PAGE, SINON VOUS RISQUEZ DE RENCONTRER UNE ERREUR AVEC VOTRE ACHAT.
+            🚨 ATTENDEZ ! CECI EST UNE OFFRE UNIQUE. NE FERMEZ PAS CETTE PAGE.
         </div>
     </div>
 
@@ -90,48 +95,54 @@
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12 fade-in-y">
                 <div class="inline-flex items-center gap-2 bg-red-100 text-red-800 px-4 py-2 rounded-full mb-6">
-                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" x2="12" y1="9" y2="13"></line><line x1="12" x2="12.01" y1="17" y2="17"></line></svg>
-                    <span class="font-semibold">OFFRE EXCLUSIVE - TEMPS LIMITÉ</span>
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <span class="font-semibold">RÉDUCTION DE DERNIÈRE MINUTE</span>
                 </div>
 
                 <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                    Récupérez les <span class="text-red-600">Messages Supprimés</span><br>& le Contenu Caché
+                    <span class="text-red-600">ATTENDEZ ! Avant de partir...</span><br>Obtenez tout avec plus de 70% de réduction
                 </h1>
 
                 <div class="bg-white rounded-lg p-6 shadow-xl border-2 border-red-200 mb-8">
-                    <div class="flex items-center justify-center gap-2 text-red-600 mb-4">
+                     <!-- New Pricing Structure for Downsell -->
+                    <div class="text-3xl md:text-4xl font-bold text-gray-400 line-through mb-2">€47</div>
+                    <div class="text-4xl md:text-5xl font-extrabold text-green-600 mb-4">€27</div>
+                    <div class="text-lg font-semibold text-gray-700">Paiement unique - Dernière chance !</div>
+
+                    <div class="flex items-center justify-center gap-2 text-red-600 mt-4">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <span id="countdown-timer" class="text-xl font-bold">L'offre expire dans : 15:00</span>
+                        <span id="countdown-timer" class="text-xl font-bold">Ce prix spécial expire dans : 15:00</span>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12 mb-8 fade-in-y" style="animation-delay: 0.2s;">
                 <div class="mb-12">
-                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">Découvrez ce qu'on vous cache</h2>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">Une offre finale et irréfutable pour découvrir la vérité</h2>
                     <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                        <p class="text-xl mb-6"><strong>Félicitations pour votre courage à chercher la vérité sur votre relation.</strong> Il est douloureux d'imaginer l'être cher partager des moments avec quelqu'un d'autre, mais vous avez l'intelligence et la détermination de découvrir la vérité.</p>
-                        <p class="text-lg mb-6">Notre application avancée vous permet de <strong>récupérer tous les messages, photos et vidéos supprimés</strong>, ne laissant aucun secret vous être caché.</p>
+                        <p class="text-xl mb-6"><strong>Nous comprenons. L'investissement initial a peut-être été un souci.</strong> Mais votre désir de découvrir la vérité est clair, et nous ne voulons pas que quelques dollars vous empêchent d'avoir l'esprit tranquille.</p>
+                        <p class="text-lg mb-6">Pour cette raison, et parce que nous croyons qu'il est important de vous aider à trouver les réponses que vous méritez, nous vous faisons une dernière offre qui n'est <strong class="text-red-600">disponible que sur cette page, en ce moment.</strong></p>
                         <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 mb-6">
-                            <p class="text-lg mb-4"><strong>Cette offre exclusive n'est disponible que sur cette page.</strong> D'une valeur normale de <span class="line-through text-red-500">€100</span>, vous pouvez l'obtenir maintenant pour seulement <span class="text-green-600 font-bold text-2xl">€47</span> (plus de 50 % de réduction).</p>
+                            <p class="text-lg mb-4">Vous pouvez obtenir un accès complet à l'<strong>Outil de récupération de messages supprimés et de contenu caché</strong> non pas pour le prix original de <span class="line-through text-red-500">€100</span>, ni même pour l'offre précédente de <span class="line-through text-red-500">€47</span>, mais pour un paiement unique de seulement <span class="text-green-600 font-bold text-2xl">€27</span>.</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Features remain the same to reinforce value -->
                 <div class="grid md:grid-cols-3 gap-6 mb-12">
                     <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl">
                         <svg class="w-12 h-12 text-blue-600 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                        <h3 class="font-bold text-lg mb-2">Messages Supprimés</h3>
+                        <h3 class="font-bold text-lg mb-2">Messages supprimés</h3>
                         <p class="text-gray-600">Récupérez toutes les conversations et discussions WhatsApp supprimées</p>
                     </div>
                     <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
                         <svg class="w-12 h-12 text-purple-600 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                        <h3 class="font-bold text-lg mb-2">Photos Cachées</h3>
-                        <p class="text-gray-600">Accédez aux images supprimées et aux échanges de photos privées</p>
+                        <h3 class="font-bold text-lg mb-2">Photos cachées</h3>
+                        <p class="text-gray-600">Accédez aux images supprimées et aux échanges de photos privés</p>
                     </div>
                     <div class="text-center p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-xl">
                         <svg class="w-12 h-12 text-red-600 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8l-6 4 6 4V8z"></path><rect x="2" y="6" width="14" height="12" rx="2" ry="2"></rect></svg>
-                        <h3 class="font-bold text-lg mb-2">Vidéos Secrètes</h3>
+                        <h3 class="font-bold text-lg mb-2">Vidéos secrètes</h3>
                         <p class="text-gray-600">Découvrez le contenu vidéo et les messages vocaux supprimés</p>
                     </div>
                 </div>
@@ -139,41 +150,44 @@
                 <div class="bg-green-50 rounded-xl p-6 mb-8">
                     <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center gap-2">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                        Ce que vous obtenez :
+                        Vous obtenez toujours tout :
                     </h3>
                     <ul class="space-y-3 text-green-700">
-                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Vous recevrez un guide détaillé pour utiliser l'application efficacement</li>
-                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Garantie de remboursement de 30 jours incluse</li>
-                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Accès au support client 24/7</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Vous recevrez un guide détaillé pour utiliser efficacement l'application</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Garantie de remboursement de 30 jours incluse.</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Accès au support client 24/7.</li>
                     </ul>
                 </div>
 
                 <div class="text-center mb-8">
-                    <p class="text-lg text-gray-700 mb-6"><strong>Agissez maintenant pour éviter la tromperie et assurer l'honnêteté dans votre relation.</strong> Cliquez ci-dessous avant que cette opportunité ne disparaisse.</p>
+                    <p class="text-lg text-gray-700 mb-6"><strong>C'est votre dernière opportunité.</strong> Cliquez ci-dessous pour réclamer votre remise massive avant que cette page ne disparaisse pour toujours.</p>
                 </div>
 
+                <!-- ======================================================= -->
+                <!-- ÁREA DE ALTERAÇÃO: MONETIZZE REMOVIDA, MUNDPAY INSERIDA -->
+                <!-- ======================================================= -->
                 <div class="mndpay_container">
-                    <a href="javascript:void(0)" data-mndpay="0198326c-6d07-72a7-b573-ec31d5b4d588" class="mndpay_btn">JE VEUX VOIR LES MESSAGES SUPPRIMÉS ET CACHÉS</a>
+                  <a href="javascript:void(0)" data-mndpay="01982e88-cbd8-7197-9ec1-3e52c4fe72c0" class="mndpay_btn">JE VEUX VOIR LES MESSAGES SUPPRIMÉS ET CACHÉS</a>
                 </div>
-
             </div>
 
             <div class="text-center text-gray-600 fade-in-y" style="animation-delay: 0.4s;">
                 <div class="flex items-center justify-center gap-4 mb-4">
                     <svg class="w-6 h-6 text-green-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    <span>Paiement Sécurisé</span>
+                    <span>Paiement sécurisé.</span>
                     <span>•</span>
                     <span>Crypté SSL</span>
                     <span>•</span>
-                    <span>Garantie de Remboursement</span>
+                    <span>Garantie de remboursement.</span>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Script for the countdown timer -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let timeLeft = 15 * 60; // 15 minutes en secondes
+            let timeLeft = 15 * 60; // 15 minutes in seconds
             const countdownEl = document.getElementById('countdown-timer');
 
             function formatTime(seconds) {
@@ -183,20 +197,23 @@
             }
 
             function updateCountdown() {
-                countdownEl.textContent = `L'offre expire dans : ${formatTime(timeLeft)}`;
+                if (countdownEl) {
+                    countdownEl.textContent = `Ce prix spécial expire dans : ${formatTime(timeLeft)}`;
+                }
                 if (timeLeft > 0) {
                     timeLeft--;
                 } else {
                     clearInterval(timer);
-                    countdownEl.textContent = "L'offre a expiré";
+                    if (countdownEl) {
+                        countdownEl.textContent = "Offre expirée";
+                    }
                 }
             }
             
             const timer = setInterval(updateCountdown, 1000);
-            updateCountdown(); // Appelle une fois pour ne pas attendre 1 seconde
+            updateCountdown(); // Call once to avoid initial 1-second delay
         });
     </script>
-    
+    <script src="https://upsell.mundpay.com/script.js"></script>
 </body>
-<script src="https://upsell.mundpay.com/script.js"></script>
 </html>
