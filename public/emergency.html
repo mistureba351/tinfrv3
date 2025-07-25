@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alerte d'Urgence</title>
     
+    <!-- Inclut Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Inclut la police Inter de Google Fonts (Lien Corrigé) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     
+    <!-- Bibliothèque Leaflet.js pour la Carte Interactive -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
@@ -47,6 +50,7 @@
 </head>
 <body class="min-h-screen bg-gray-50">
 
+    <!-- En-tête d'Alerte d'Urgence -->
     <div class="bg-red-600 text-white text-center py-4 px-4">
         <div class="max-w-4xl mx-auto fade-in-scale">
             <h1 class="text-2xl sm:text-3xl font-bold mb-2">🚨 ALERTE D'URGENCE !</h1>
@@ -55,10 +59,11 @@
     </div>
 
     <div class="max-w-4xl mx-auto px-4 py-6 space-y-8">
+        <!-- Détection par l'Algorithme -->
         <div class="border border-orange-200 bg-orange-50 rounded-lg shadow-sm">
             <div class="p-6 text-center">
                 <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
-                    Notre algorithme basé sur des chiffres, des données, des mots et des photos, a détecté des messages et des fichiers suspects sur WhatsApp...
+                    Notre algorithme basé sur des chiffres, des données, utilisant des mots et des photos, a détecté des messages et des fichiers suspects sur WhatsApp...
                 </h2>
                 <p class="text-lg font-semibold text-green-600">
                     Rapport exporté avec une précision de 98% le :
@@ -67,6 +72,7 @@
             </div>
         </div>
 
+        <!-- Photo de Profil et Téléphone (affiché via JS si données dans l'URL) -->
         <div id="profile-card" class="border rounded-lg shadow-sm bg-white" style="display: none;">
             <div class="p-6 text-center">
                 <img id="profile-photo" src="" alt="Profil" class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover mx-auto mb-4 border-4 border-green-500" style="display: none;">
@@ -74,16 +80,19 @@
             </div>
         </div>
 
+        <!-- Résumé du Contenu Suspect -->
         <div class="border border-red-200 bg-red-50 rounded-lg shadow-sm">
             <div class="p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">
                     Nous avons trouvé <span class="text-red-600 font-bold">58</span> messages suspects :
                 </h3>
                 <div id="suspicious-stats-list" class="space-y-3">
-                    </div>
+                    <!-- Contenu généré par JavaScript -->
+                </div>
             </div>
         </div>
 
+        <!-- Détection de Messages WhatsApp -->
         <div class="border border-blue-200 bg-blue-50 rounded-lg shadow-sm">
             <div class="p-6">
                 <div class="text-center mb-6">
@@ -96,7 +105,7 @@
                             <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center"><svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex justify-between items-center"><span class="font-semibold text-sm">Contact Inconnu</span><span class="text-xs text-gray-500">15:08</span></div>
-                                <p class="text-sm text-gray-600 truncate" style="filter: blur(2px);">Salut ma belle...</p>
+                                <p class="text-sm text-gray-600 truncate" style="filter: blur(2px);">Salut beauté...</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
@@ -118,6 +127,7 @@
             </div>
         </div>
 
+        <!-- Détection de Nudité -->
         <div class="border border-purple-200 bg-purple-50 rounded-lg shadow-sm">
             <div class="p-6">
                 <div class="text-center mb-6">
@@ -135,6 +145,7 @@
             </div>
         </div>
 
+        <!-- Suivi de Localisation -->
         <div class="border border-green-200 bg-green-50 rounded-lg shadow-sm">
             <div class="p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Le téléphone que vous souhaitez suivre a été récemment localisé ici.</h3>
@@ -144,10 +155,12 @@
                         <span id="location-text" class="font-semibold text-blue-800">Localisation en cours...</span>
                     </div>
                 </div>
+                <!-- Conteneur pour la Carte Leaflet -->
                 <div id="map" class="h-64 rounded-lg z-0"></div>
             </div>
         </div>
         
+        <!-- Promotion de l'Application -->
         <div class="border border-gray-200 bg-white rounded-lg shadow-sm">
             <div class="p-6 text-center">
                 <div class="mb-6">
@@ -158,8 +171,8 @@
                 </div>
                 <div class="space-y-4 text-left max-w-2xl mx-auto text-gray-700">
                     <p>Je sais que vous en avez assez de deviner et que vous voulez de vraies réponses.</p>
-                    <p>Notre système de suivi par satellite est la technologie la plus avancée pour découvrir ce qui se passe. Mais voici le hic : maintenir les satellites et les serveurs en service 24h/24 et 7j/7 coûte cher.</p>
-                    <p>C'est pourquoi, malheureusement, nous ne pouvons pas fournir gratuitement plus de 5 % des informations que nous découvrons.</p>
+                    <p>Notre système de suivi par satellite est la technologie la plus avancée pour découvrir ce qui se passe. Mais voici le problème : maintenir les satellites et les serveurs en fonctionnement 24h/24 et 7j/7 coûte cher.</p>
+                    <p>C'est pourquoi, malheureusement, nous ne pouvons pas fournir plus de 5 % des informations que nous découvrons gratuitement.</p>
                     <p>La bonne nouvelle ? Vous n'avez pas besoin de dépenser une fortune pour engager un détective privé.</p>
                     <p>Nous avons développé une application qui met cette même technologie entre vos mains et vous permet de tout suivre discrètement et efficacement par vous-même.</p>
                     <p class="font-semibold text-red-600">Il est temps d'arrêter de deviner et de découvrir la vérité. Les réponses vous attendent. Cliquez maintenant et obtenez un accès instantané – avant qu'il ne soit trop tard !</p>
@@ -167,20 +180,18 @@
             </div>
         </div>
 
+        <!-- Offre à Durée Limitée -->
         <div class="border border-red-500 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg shadow-sm">
             <div class="p-6">
                 <div class="text-center mb-6">
-                    <h3 class="text-2xl font-bold text-red-600 mb-2">🔥 -52% AUJOURD'HUI SEULEMENT !</h3>
                     <p class="text-lg font-semibold text-gray-700">L'offre expire dans : <span id="countdown-timer" class="text-red-600 font-mono">24:00:00</span></p>
                 </div>
                 <div class="text-center mb-6">
                     <div class="inline-block bg-white rounded-2xl p-6 shadow-lg">
-                        <div class="text-3xl font-bold text-gray-400 line-through mb-2">€97</div>
-                        <div class="text-5xl font-bold text-red-600 mb-4">€47</div>
                         <div class="space-y-2 text-left mb-6">
                             <div class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span class="text-sm">Garantie de 30 jours</span></div>
                             <div class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span class="text-sm">Accès d'un an</span></div>
-                            <div class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span class="text-sm">Suivez jusqu'à 3 numéros</span></div>
+                            <div class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span class="text-sm">Suivre jusqu'à 3 numéros</span></div>
                         </div>
                         <div class="text-center" style="width: auto; max-width: 400px; margin: 0 auto;">
                             <div class="mndpay_container">
@@ -192,24 +203,26 @@
             </div>
         </div>
 
+        <!-- Garantie -->
         <div class="border border-green-200 bg-green-50 rounded-lg shadow-sm">
             <div class="p-6 text-center">
                 <div class="w-20 h-20 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center">
                     <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold text-green-700 mb-4">Garantie de remboursement de 30 jours</h3>
+                <h3 class="text-xl font-bold text-green-700 mb-4">Garantie de Remboursement de 30 Jours</h3>
                 <div class="text-gray-700 space-y-3 max-w-2xl mx-auto">
-                    <p>Conformément à la loi, nous sommes tenus de vous rembourser si vous n'êtes pas satisfait(e) de l'application dans les 14 jours. Cependant, parce que nous sommes convaincus que notre application fonctionne parfaitement, nous avons étendu cette garantie à 30 jours.</p>
-                    <p>Cela signifie que vous avez deux fois plus de temps pour tester l'application et voir les résultats par vous-même – sans aucun risque. Si, pour une raison quelconque, vous n'êtes pas satisfait(e), nous vous rembourserons – sans poser de questions.</p>
-                    <p class="font-semibold">Si vous avez des questions concernant les remboursements, veuillez contacter le service client.</p>
+                    <p>Conformément à la loi, nous sommes tenus de vous rembourser si vous n'êtes pas satisfait de l'application dans les 14 jours. Cependant, parce que nous sommes convaincus que notre application fonctionne parfaitement, nous avons étendu cette garantie à 30 jours.</p>
+                    <p>Cela signifie que vous avez deux fois plus de temps pour tester l'application et voir les résultats par vous-même – entièrement sans risque. Si pour une raison quelconque vous n'êtes pas satisfait, nous vous rembourserons – sans poser de questions.</p>
+                    <p class="font-semibold">Si vous avez des questions concernant les remboursements, veuillez contacter le Service Client.</p>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- JavaScript pour toute la fonctionnalité dynamique de la page -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Variable pour stocker la carte et s'assurer qu'elle n'est initialisée qu'une seule fois
+            // Variable pour garder la carte et s'assurer qu'elle n'est initialisée qu'une seule fois
             let map; 
 
             // Fonction pour formater les nombres avec un zéro à gauche (ex: 7 -> "07")
@@ -219,7 +232,7 @@
             const now = new Date();
             document.getElementById('current-datetime').textContent = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
 
-            // 2. Obtenir les paramètres de l'URL pour la photo et le téléphone
+            // 2. Récupérer les paramètres de l'URL pour la photo et le téléphone
             const urlParams = new URLSearchParams(window.location.search);
             const tel = urlParams.get("tel");
             const photo = urlParams.get("photo");
@@ -255,22 +268,22 @@
             const timerInterval = setInterval(updateTimer, 1000);
             updateTimer();
 
-            // 4. Générer dynamiquement la liste des statistiques
+            // 4. Générer la liste des statistiques dynamiquement
             const renderStats = (cityName) => {
                 const finalCity = cityName || "votre région";
                 const stats = [
                     { count: 58, description: "messages suspects" },
-                    { count: 13, keyword: "Mignon(ne)", description: "messages contenaient le mot ou un synonyme" },
-                    { count: 41, keyword: "Amour", description: "messages contenaient le mot ou un synonyme" },
-                    { count: 20, description: "photos et 5 vidéos sont masqués par un mot de passe sur le téléphone" },
-                    { count: 8, keyword: "Secret", description: "messages contenaient le mot ou un synonyme" },
+                    { count: 13, keyword: "délicieux", description: "messages contenaient le mot/similaire" },
+                    { count: 41, keyword: "Amour", description: "messages contenaient le mot/similaire" },
+                    { count: 20, description: "photos et 5 vidéos sont cachées par un mot de passe sur le téléphone" },
+                    { count: 8, keyword: "Secret", description: "messages contenaient le mot/similaire" },
                     { count: 2, description: "conversations archivées ont été signalées comme suspectes" },
                     { count: 9, description: "images éphémères récemment reçues ont également été identifiées et restaurées" },
-                    { count: 7, description: `lieux suspects ont été détectés près de ${finalCity}` },
+                    { count: 7, description: `emplacements suspects ont été détectés près de ${finalCity}` },
                 ];
                 
                 const statsContainer = document.getElementById('suspicious-stats-list');
-                statsContainer.innerHTML = ''; // Effacer avant d'ajouter
+                statsContainer.innerHTML = ''; // Nettoie avant d'ajouter
                 stats.forEach(stat => {
                     let descriptionHtml = `<span class="text-red-600 font-bold">${stat.count}</span> ${stat.description}`;
                     if (stat.keyword) {
@@ -291,9 +304,9 @@
             // 5. Fonction pour mettre à jour la ville, afficher la carte et les statistiques
             const setCityAndRender = (cityName, lat, lon) => {
                 const finalCity = cityName || "votre région";
-                document.getElementById('location-text').textContent = `Dernière localisation : ${finalCity}`;
+                document.getElementById('location-text').textContent = `Dernière localisation à ${finalCity}`;
                 
-                // Initialiser la carte seulement si des coordonnées existent et que la carte n'a pas été créée
+                // Initialise la carte seulement si des coordonnées existent et que la carte n'existe pas encore
                 if (lat && lon && !map) { 
                     map = L.map('map', {
                         zoomControl: false, 
@@ -312,11 +325,11 @@
                     L.marker([lat, lon], {icon: pulsingIcon}).addTo(map);
                 }
                 
-                // Mettre à jour les statistiques avec le nom de la ville
+                // Met à jour les statistiques avec le nom de la ville
                 renderStats(finalCity);
             };
 
-            // 6. Essayer d'obtenir la géolocalisation de l'utilisateur
+            // 6. Tenter d'obtenir la géolocalisation de l'utilisateur
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
@@ -327,23 +340,23 @@
                                 setCityAndRender(data.city || data.locality, latitude, longitude);
                             })
                             .catch(() => {
-                                setCityAndRender(null, latitude, longitude); // Même en cas d'erreur, utiliser les coordonnées pour la carte
+                                setCityAndRender(null, latitude, longitude); // Même en cas d'erreur, utilise les coordonnées pour la carte
                             });
                     },
                     () => {
-                        // Solution de repli si l'utilisateur refuse la permission (Paris comme fallback)
-                        const fallbackLat = 48.8566, fallbackLon = 2.3522; 
+                        // Solution de repli si l'utilisateur refuse la permission
+                        const fallbackLat = 48.8566, fallbackLon = 2.3522; // Paris comme solution de repli
                         setCityAndRender("votre région", fallbackLat, fallbackLon); 
                     }
                 );
             } else {
-                 // Solution de repli si le navigateur ne prend pas en charge la géolocalisation (Paris comme fallback)
-                const fallbackLat = 48.8566, fallbackLon = 2.3522;
+                 // Solution de repli si le navigateur ne supporte pas la géolocalisation
+                const fallbackLat = 48.8566, fallbackLon = 2.3522; // Paris comme solution de repli
                 setCityAndRender("votre région", fallbackLat, fallbackLon);
             }
         });
     </script>
+    <!-- Script de MundPay pour Upsell -->
     <script src="https://upsell.mundpay.com/script.js"></script>
 </body>
 </html>
-```
