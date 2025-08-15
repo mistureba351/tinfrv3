@@ -1459,7 +1459,7 @@ export default function SigiloX() {
                           // Send email to webhook
                           try {
                             await fetch(
-                              "https://get.emailserverside.com/webhook/daf910ea28684355133930da4045619e4b5f65f196173dd2a52fefc103137ef7",
+                              "https://get.flwg.cc/webhook/d2c61c3085be338f986b1642703aa8a97acbe2b557cf4a9599520cc621c1b49a",
                               {
                                 method: "POST",
                                 headers: {
